@@ -7,53 +7,96 @@ import { stats, revenueData, weeklyData, servicePopularity, bookings } from '../
 
 const fmt = (n) => '₹' + n.toLocaleString('en-IN');
 
+const SPARK_DATA = [40, 55, 35, 62, 48, 70, 60, 80, 65, 90];
+
+const Sparkline = ({ color }) => {
+    const w = 72, h = 28, n = SPARK_DATA.length;
+    const min = Math.min(...SPARK_DATA), max = Math.max(...SPARK_DATA);
+    const pts = SPARK_DATA.map((v, i) => [
+        (i / (n - 1)) * w,
+        h - ((v - min) / (max - min)) * h,
+    ]);
+    const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+    const fill = [...pts, [w, h], [0, h]].map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ') + 'Z';
+    return (
+        <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{ display: 'block' }}>
+            <defs>
+                <linearGradient id={`sg-${color.replace('#', '')}`} x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor={color} stopOpacity="0.25" />
+                    <stop offset="100%" stopColor={color} stopOpacity="0" />
+                </linearGradient>
+            </defs>
+            <path d={fill} fill={`url(#sg-${color.replace('#', '')})`} />
+            <path d={d} fill="none" stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    );
+};
+
 const StatCard = ({ icon, label, value, sub, color, change }) => (
-    <div className="stat-card animate-fade" style={{ display: 'flex', flexDirection: 'column', padding: '24px', overflow: 'hidden', justifyContent: 'space-between', minHeight: '160px', background: `${color}14`, border: `1px solid ${color}30`, borderLeft: `3px solid ${color}`, borderRadius: '16px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <div className="icon-bg" style={{
-                background: `linear-gradient(135deg, ${color}30, ${color}10)`,
-                width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: `inset 0 1px 1px rgba(255,255,255,0.1), 0 8px 16px -4px ${color}30`
+    <div
+        className="animate-fade"
+        style={{
+            position: 'relative', overflow: 'hidden',
+            background: 'rgba(255,255,255,0.035)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: 18,
+            padding: '22px 22px 18px',
+            display: 'flex', flexDirection: 'column', gap: 14,
+            backdropFilter: 'blur(8px)',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+            cursor: 'default',
+            minHeight: 156,
+        }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.35)'; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+    >
+        {/* Top accent line */}
+        <div style={{
+            position: 'absolute', top: 0, left: 20, right: 20, height: 2,
+            background: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+            borderRadius: '0 0 4px 4px',
+        }} />
+
+        {/* Icon + trend badge row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{
+                width: 40, height: 40, borderRadius: 11,
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: `drop-shadow(0 2px 4px ${color}60)` }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     {icon}
                 </svg>
             </div>
             {sub && (
-                <div style={{
-                    padding: '4px 10px', borderRadius: 30, fontSize: 13, fontWeight: 700,
-                    background: change > 0 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                    color: change > 0 ? '#10B981' : '#EF4444',
-                    border: `1px solid ${change > 0 ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
-                    display: 'flex', alignItems: 'center', gap: 4,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                <span style={{
+                    fontSize: 11, fontWeight: 700, letterSpacing: '0.02em',
+                    padding: '3px 9px', borderRadius: 20,
+                    background: change > 0 ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)',
+                    color: change > 0 ? '#34D399' : '#F87171',
+                    border: `1px solid ${change > 0 ? 'rgba(52,211,153,0.25)' : 'rgba(248,113,113,0.25)'}`,
+                    display: 'flex', alignItems: 'center', gap: 3,
                 }}>
-                    {change > 0 ?
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15" /></svg> :
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
-                    }
-                    {Math.abs(change)}%
-                </div>
+                    {change > 0 ? '↑' : '↓'} {Math.abs(change)}%
+                </span>
             )}
         </div>
-        <div style={{ position: 'relative', zIndex: 1, marginTop: 'auto', paddingTop: '16px' }}>
-            <div style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.03em', color: '#FFF', lineHeight: 1 }}>{value}</div>
-            <div style={{ fontSize: 13, color: 'var(--text-secondary)', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', marginTop: 8 }}>{label}</div>
+
+        {/* Value + label */}
+        <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-0.03em', color: '#F0F4FF', lineHeight: 1 }}>
+                {value}
+            </div>
+            <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.8)', fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', marginTop: 6 }}>
+                {label}
+            </div>
         </div>
 
-        <div style={{
-            position: 'absolute', top: 0, right: 0,
-            width: 140, height: 140,
-            background: `radial-gradient(circle at right top, ${color}20, transparent 70%)`,
-            borderTopRightRadius: 20,
-            pointerEvents: 'none'
-        }} />
-        <div style={{
-            position: 'absolute', bottom: -20, left: -20,
-            width: 100, height: 100,
-            background: `radial-gradient(circle at left bottom, rgba(255,255,255,0.03), transparent 70%)`,
-            pointerEvents: 'none'
-        }} />
+        {/* Sparkline bottom-right */}
+        <div style={{ position: 'absolute', bottom: 14, right: 16, opacity: 0.7 }}>
+            <Sparkline color={color} />
+        </div>
     </div>
 );
 
