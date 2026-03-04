@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { coupons, services } from '../data/mockData';
 
+/* ── Modal ─────────────────────────────────────────── */
 function CouponModal({ coupon, onClose }) {
     const isNew = !coupon;
     const [form, setForm] = useState(coupon || {
@@ -32,7 +33,7 @@ function CouponModal({ coupon, onClose }) {
                     </div>
                     <div>
                         <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                            DISCOUNT VALUE ({form.type === 'flat' ? '₹' : '%'})
+                            VALUE ({form.type === 'flat' ? '₹' : '%'})
                         </div>
                         <input className="input" type="number" value={form.value} placeholder="e.g. 50"
                             onChange={e => setForm({ ...form, value: e.target.value })} />
@@ -47,70 +48,147 @@ function CouponModal({ coupon, onClose }) {
                         <input className="input" type="number" value={form.usageLimit} placeholder="e.g. 500"
                             onChange={e => setForm({ ...form, usageLimit: e.target.value })} />
                     </div>
-                    <div>
+                    <div style={{ gridColumn: '1 / -1' }}>
                         <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>EXPIRY DATE</div>
                         <input className="input" type="date" value={form.expiry}
                             onChange={e => setForm({ ...form, expiry: e.target.value })}
                             style={{ colorScheme: 'dark' }} />
                     </div>
-                    <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>APPLICABLE SERVICES</div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                            {['All', ...services.map(s => s.name)].map(s => (
-                                <label key={s} style={{
-                                    display: 'flex', alignItems: 'center', gap: 5, cursor: 'pointer', fontSize: 11,
-                                    background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '5px 10px', border: '1px solid var(--border)'
-                                }}>
-                                    <input type="checkbox" defaultChecked={s === 'All'} />
-                                    {s}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-                    <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>APPLICABLE VEHICLE TYPES</div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                            {['All', 'Hatchback', 'Sedan', 'SUV/XUV', 'Luxury', 'Bike'].map(v => (
-                                <label key={v} style={{
-                                    display: 'flex', alignItems: 'center', gap: 5, cursor: 'pointer', fontSize: 11,
-                                    background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '5px 10px', border: '1px solid var(--border)'
-                                }}>
-                                    <input type="checkbox" defaultChecked={v === 'All'} />
-                                    {v}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
                 </div>
                 <div className="modal-footer">
                     <label style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, fontSize: 13, cursor: 'pointer' }}>
-                        <input type="checkbox" checked={form.active} onChange={e => setForm({ ...form, active: e.target.checked })} />
+                        <input type="checkbox" checked={form.active} onChange={e => setForm({ ...form, active: e.target.checked })}
+                            style={{ accentColor: '#F5C518', width: 16, height: 16 }} />
                         Active
                     </label>
                     <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
-                    <button className="btn btn-primary">Save Coupon</button>
+                    <button className="btn btn-primary" onClick={onClose}>Save Coupon</button>
                 </div>
             </div>
         </div>
     );
 }
 
+/* ── Coupon Card ───────────────────────────────────── */
+function CouponCard({ c, onEdit, onToggle }) {
+    const usedPct = Math.min(100, Math.round((c.usedCount / c.usageLimit) * 100));
+    const col = '#F5C518';
+
+    return (
+        <div
+            style={{
+                position: 'relative', overflow: 'hidden',
+                background: 'rgba(255,255,255,0.035)',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: 20,
+                padding: '24px',
+                display: 'flex', flexDirection: 'column', gap: 18,
+                backdropFilter: 'blur(8px)',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                opacity: c.active ? 1 : 0.6,
+            }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.3)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+        >
+            {/* Top accent line */}
+            <div style={{
+                position: 'absolute', top: 0, left: 24, right: 24, height: 2,
+                background: `linear-gradient(90deg,transparent,${c.active ? col : 'rgba(255,255,255,0.2)'},transparent)`, borderRadius: '0 0 4px 4px'
+            }} />
+
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <div>
+                    <div style={{ fontFamily: 'monospace', fontSize: 22, fontWeight: 900, color: c.active ? col : 'var(--text-secondary)', letterSpacing: '0.08em' }}>
+                        {c.code}
+                    </div>
+                    <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.8)', marginTop: 6, fontWeight: 600 }}>
+                        {c.type === 'flat' ? `₹${c.value} FLAT OFF` : `${c.value}% PERCENT OFF`}
+                        {c.maxDiscount ? ` · UP TO ₹${c.maxDiscount}` : ''}
+                    </div>
+                </div>
+                <div style={{
+                    fontSize: 10, fontWeight: 800, padding: '4px 10px', borderRadius: 20,
+                    background: c.active ? 'rgba(16,185,129,0.12)' : 'rgba(239,68,68,0.12)',
+                    color: c.active ? '#34D399' : '#F87171',
+                    border: c.active ? '1px solid rgba(52,211,153,0.25)' : '1px solid rgba(248,113,113,0.25)',
+                    textTransform: 'uppercase', letterSpacing: '0.05em'
+                }}>
+                    {c.active ? 'Active' : 'Disabled'}
+                </div>
+            </div>
+
+            {/* Details grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>EXPIRES</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F4FF', marginTop: 4 }}>{c.expiry}</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>USAGE LIMIT</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F4FF', marginTop: 4 }}>{c.usageLimit}</div>
+                </div>
+            </div>
+
+            {/* Usage Progress */}
+            <div style={{ marginTop: 4 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 8 }}>
+                    <span style={{ color: 'rgba(148,163,184,0.7)', fontWeight: 600 }}>TOTAL REDEMPTIONS</span>
+                    <span style={{ fontWeight: 800, color: '#F0F4FF' }}>{c.usedCount} / {c.usageLimit} ({usedPct}%)</span>
+                </div>
+                <div className="progress-bar" style={{ height: 6 }}>
+                    <div className="progress-fill" style={{ width: `${usedPct}%`, background: usedPct > 90 ? '#F87171' : col }} />
+                </div>
+            </div>
+
+            {/* Actions */}
+            <div style={{ display: 'flex', gap: 8, borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20 }}>
+                <button
+                    onClick={() => onEdit(c)}
+                    style={{
+                        flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+                        color: '#F0F4FF', borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
+                        cursor: 'pointer', transition: 'all 0.15s'
+                    }}>
+                    Edit
+                </button>
+                <button
+                    onClick={() => onToggle(c)}
+                    style={{
+                        flex: 1,
+                        background: c.active ? 'rgba(239,68,68,0.08)' : 'rgba(16,185,129,0.08)',
+                        border: c.active ? '1px solid rgba(239,68,68,0.2)' : '1px solid rgba(16,185,129,0.2)',
+                        color: c.active ? '#F87171' : '#34D399',
+                        borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
+                        cursor: 'pointer', transition: 'all 0.15s'
+                    }}>
+                    {c.active ? 'Disable' : 'Activate'}
+                </button>
+            </div>
+        </div>
+    );
+}
+
+/* ── Page ───────────────────────────────────────────── */
 export default function Coupons() {
+    const [data, setData] = useState(coupons);
     const [modal, setModal] = useState(null);
     const [isNew, setIsNew] = useState(false);
+
+    const handleToggle = (c) => setData(d => d.map(x => x.id === c.id ? { ...x, active: !x.active } : x));
 
     return (
         <div className="animate-fade">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
                 <div style={{ display: 'flex', gap: 12 }}>
                     {[
-                        { label: 'Total Coupons', val: coupons.length, col: '#3B82F6' },
-                        { label: 'Active', val: coupons.filter(c => c.active).length, col: '#10B981' },
-                        { label: 'Total Usage', val: coupons.reduce((a, c) => a + c.usedCount, 0), col: '#F5C518' },
+                        { label: 'Total Coupons', val: data.length, col: '#3B82F6' },
+                        { label: 'Active', val: data.filter(c => c.active).length, col: '#10B981' },
+                        { label: 'Total Usage', val: data.reduce((a, c) => a + c.usedCount, 0), col: '#F5C518' },
                     ].map((s, i) => (
-                        <div key={i} style={{ background: `${s.col}14`, border: `1px solid ${s.col}30`, borderRadius: 12, padding: '12px 20px', textAlign: 'center', minWidth: 120 }}>
-                            <div style={{ fontSize: 22, fontWeight: 800, color: s.col }}>{s.val}</div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{s.label}</div>
+                        <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '14px 24px', textAlign: 'center', minWidth: 130 }}>
+                            <div style={{ fontSize: 24, fontWeight: 800, color: s.col, letterSpacing: '-0.02em' }}>{s.val}</div>
+                            <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.7)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: 4 }}>{s.label}</div>
                         </div>
                     ))}
                 </div>
@@ -119,59 +197,10 @@ export default function Coupons() {
                 </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 16 }}>
-                {coupons.map(c => {
-                    const usedPct = Math.round((c.usedCount / c.usageLimit) * 100);
-                    return (
-                        <div key={c.id} className="card" style={{
-                            borderLeft: `3px solid ${c.active ? '#F5C518' : 'rgba(255,255,255,0.1)'}`,
-                            opacity: c.active ? 1 : 0.6,
-                        }}>
-                            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
-                                <div>
-                                    <div style={{ fontFamily: 'monospace', fontSize: 20, fontWeight: 900, color: '#F5C518', letterSpacing: '0.05em' }}>
-                                        {c.code}
-                                    </div>
-                                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>
-                                        {c.type === 'flat' ? `₹${c.value} off` : `${c.value}% off`}
-                                        {c.maxDiscount ? ` · max ₹${c.maxDiscount}` : ''}
-                                    </div>
-                                </div>
-                                <span className={`badge ${c.active ? 'badge-completed' : 'badge-cancelled'}`}>
-                                    {c.active ? 'Active' : 'Disabled'}
-                                </span>
-                            </div>
-
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 12 }}>
-                                <div style={{ fontSize: 12 }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>Expires: </span>
-                                    <span style={{ fontWeight: 600 }}>{c.expiry}</span>
-                                </div>
-                                <div style={{ fontSize: 12 }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>Limit: </span>
-                                    <span style={{ fontWeight: 600 }}>{c.usageLimit}</span>
-                                </div>
-                            </div>
-
-                            <div style={{ marginBottom: 14 }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 5 }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>Usage</span>
-                                    <span style={{ fontWeight: 600 }}>{c.usedCount} / {c.usageLimit} ({usedPct}%)</span>
-                                </div>
-                                <div className="progress-bar">
-                                    <div className="progress-fill" style={{ width: `${usedPct}%` }} />
-                                </div>
-                            </div>
-
-                            <div style={{ display: 'flex', gap: 8 }}>
-                                <button className="btn btn-ghost btn-sm" style={{ flex: 1 }} onClick={() => { setIsNew(false); setModal(c); }}>Edit</button>
-                                <button className={`btn btn-sm ${c.active ? 'btn-danger' : 'btn-success'}`} style={{ flex: 1 }}>
-                                    {c.active ? 'Disable' : 'Activate'}
-                                </button>
-                            </div>
-                        </div>
-                    );
-                })}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: 16 }}>
+                {data.map(c => (
+                    <CouponCard key={c.id} c={c} onEdit={(c) => { setIsNew(false); setModal(c); }} onToggle={handleToggle} />
+                ))}
             </div>
 
             {(modal !== null || isNew) && (
