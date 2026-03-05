@@ -20,25 +20,25 @@ function ZoneModal({ zone, onClose }) {
                         { label: 'Area (km²)', key: 'area', placeholder: 'e.g. 12 km²' },
                     ].map(f => (
                         <div key={f.key}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
                             <input className="input" value={form[f.key]} placeholder={f.placeholder}
                                 onChange={e => setForm({ ...form, [f.key]: e.target.value })} />
                         </div>
                     ))}
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>PRICING TIER</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>PRICING TIER</div>
                         <select className="select" value={form.pricing} onChange={e => setForm({ ...form, pricing: e.target.value })}>
                             {['Standard', 'Premium +10%', 'Premium +15%', 'Budget -5%'].map(o => <option key={o}>{o}</option>)}
                         </select>
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 10 }}>ASSIGN WORKERS</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 10 }}>ASSIGN WORKERS</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                             {workers.map(w => (
                                 <label key={w.id} style={{
                                     display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer', fontSize: 12,
-                                    background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: '8px 14px', border: '1px solid var(--border)',
-                                    color: 'var(--text-secondary)'
+                                    background: 'rgba(15, 23, 42,0.04)', borderRadius: 10, padding: '8px 14px', border: '1px solid var(--border)',
+                                    color: '#64748B'
                                 }}>
                                     <input type="checkbox" defaultChecked={w.zone.toLowerCase().includes(form.name?.toLowerCase() || 'x')}
                                         style={{ accentColor: '#F5C518' }} />
@@ -64,21 +64,11 @@ function ZoneModal({ zone, onClose }) {
 
 /* ── Zone Card ─────────────────────────────────────── */
 function ZoneCard({ z, onEdit, onToggle }) {
-    const col = z.active ? '#10B981' : 'rgba(255,255,255,0.2)';
+    const col = z.active ? '#10B981' : 'rgba(15, 23, 42,0.2)';
 
     return (
         <div
-            style={{
-                position: 'relative', overflow: 'hidden',
-                background: 'rgba(255,255,255,0.035)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 20,
-                padding: '24px',
-                display: 'flex', flexDirection: 'column', gap: 20,
-                backdropFilter: 'blur(8px)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                opacity: z.active ? 1 : 0.6,
-            }}
+            className="card"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.3)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
         >
@@ -91,8 +81,8 @@ function ZoneCard({ z, onEdit, onToggle }) {
             {/* Header */}
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 <div>
-                    <div style={{ fontWeight: 800, fontSize: 18, color: '#F0F4FF', letterSpacing: '-0.01em', lineHeight: 1.3 }}>{z.name}</div>
-                    <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.75)', marginTop: 6, fontWeight: 500 }}>{z.city} · {z.area}</div>
+                    <div style={{ fontWeight: 800, fontSize: 18, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.3 }}>{z.name}</div>
+                    <div style={{ fontSize: 12, color: '#475569', marginTop: 6, fontWeight: 500 }}>{z.city} · {z.area}</div>
                 </div>
                 <div style={{
                     fontSize: 10, fontWeight: 800, padding: '4px 10px', borderRadius: 20,
@@ -107,23 +97,23 @@ function ZoneCard({ z, onEdit, onToggle }) {
 
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>WORKERS</div>
+                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>WORKERS</div>
                     <div style={{ fontSize: 22, fontWeight: 800, color: '#3B82F6', marginTop: 4, letterSpacing: '-0.02em' }}>{z.workers}</div>
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>PRICING TIER</div>
+                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>PRICING TIER</div>
                     <div style={{ fontSize: 13, fontWeight: 700, color: '#F5C518', marginTop: 8 }}>{z.pricing}</div>
                 </div>
             </div>
 
             {/* Actions */}
-            <div style={{ display: 'flex', gap: 8, borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20 }}>
+            <div style={{ display: 'flex', gap: 8, borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: 20 }}>
                 <button
                     onClick={() => onEdit(z)}
                     style={{
-                        flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                        color: '#F0F4FF', borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
+                        flex: 1, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)',
+                        color: '#0F172A', borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
                         cursor: 'pointer', transition: 'all 0.15s'
                     }}>
                     Edit
@@ -168,7 +158,7 @@ export default function Zones() {
             </div>
 
             {/* Worker zone assignment table */}
-            <div className="card" style={{ padding: 0, overflow: 'hidden', background: 'rgba(255,255,255,0.025)' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden', background: 'rgba(15, 23, 42,0.025)' }}>
                 <div style={{ padding: '20px 24px 14px', fontWeight: 800, fontSize: 17, borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div>Worker Zone Assignments</div>
                     <button className="btn btn-ghost btn-sm" style={{ fontSize: 12 }}>Export Data</button>
@@ -192,7 +182,7 @@ export default function Zones() {
                                         <div style={{ fontWeight: 600 }}>{w.name}</div>
                                     </td>
                                     <td style={{ fontFamily: 'monospace', fontSize: 12, color: '#F5C518' }}>{w.id}</td>
-                                    <td style={{ fontSize: 13, color: 'rgba(148,163,184,0.9)' }}>{w.zone}</td>
+                                    <td style={{ fontSize: 13, color: 'rgba(100,116,139,0.9)' }}>{w.zone}</td>
                                     <td>
                                         <span style={{
                                             fontSize: 10, fontWeight: 700, padding: '3px 9px', borderRadius: 20,

@@ -147,7 +147,7 @@ const icons = {
 const navItems = [
     { key: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
     { key: 'bookings', label: 'Bookings', icon: 'bookings', badge: 16 },
-    { key: 'worker-applications', label: 'Applications', icon: 'applications', badge: 3 },
+    { key: 'verification', label: 'Applications', icon: 'applications', badge: 3 },
     { key: 'order-kit-status', label: 'Order Kits', icon: 'kit' },
     { key: 'workers', label: 'Workers', icon: 'workers' },
     { key: 'customers', label: 'Customers', icon: 'customers' },
@@ -175,12 +175,12 @@ export default function Sidebar({ active, onNavigate, collapsed, setCollapsed, m
             )}
             <aside className={`sidebar ${collapsed ? 'collapsed' : ''} ${mobileOpen ? 'mobile-open' : ''}`}>
                 {/* Logo */}
-                <div className="sidebar-logo" style={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', minHeight: '64px' }}>
-                    <img src="/logo.png" alt="WynkWash Logo" style={{ height: collapsed ? 28 : 40, objectFit: 'contain', transition: 'all 0.3s' }} />
+                <div className="sidebar-logo" style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: collapsed ? 'center' : 'flex-start', minHeight: '120px' }}>
+                    <img src="/logo.png" alt="WynkWash Logo" style={{ height: collapsed ? 44 : 100, objectFit: 'contain', transition: 'all 0.3s' }} />
                 </div>
 
                 {/* Navigation */}
-                <nav style={{ flex: 1, padding: '12px 0' }}>
+                <nav style={{ flex: 1, padding: '12px 0', overflowY: 'auto' }}>
                     {!collapsed && <div className="nav-section-label">Main Menu</div>}
                     {navItems.slice(0, 11).map(item => (
                         <div

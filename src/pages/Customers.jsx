@@ -28,7 +28,7 @@ export default function Customers({ onNavigate }) {
                     </button>
                 </div>
 
-                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                     <div style={{ overflowX: 'auto' }}>
                         <table className="data-table">
                             <thead>
@@ -58,13 +58,13 @@ export default function Customers({ onNavigate }) {
                                                 </div>
                                                 <div>
                                                     <div style={{ fontWeight: 600 }}>{c.name}</div>
-                                                    <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{c.id}</div>
+                                                    <div style={{ fontSize: 11, color: '#64748B' }}>{c.id}</div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div style={{ fontSize: 12 }}>{c.phone}</div>
-                                            <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{c.email}</div>
+                                            <div style={{ fontSize: 11, color: '#64748B' }}>{c.email}</div>
                                         </td>
                                         <td style={{ fontSize: 12 }}>{c.location}</td>
                                         <td style={{ fontWeight: 600, textAlign: 'center' }}>{c.totalBookings}</td>
@@ -99,7 +99,7 @@ export default function Customers({ onNavigate }) {
             {/* Detail Panel */}
             {selected && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
                             <div style={{ fontWeight: 700, fontSize: 15 }}>Customer Profile</div>
                             <button className="btn btn-ghost btn-sm" onClick={() => setSelected(null)}>✕</button>
@@ -116,7 +116,7 @@ export default function Customers({ onNavigate }) {
                                 </div>
                                 <div>
                                     <div style={{ fontWeight: 700, fontSize: 16 }}>{selected.name}</div>
-                                    <div style={{ color: 'var(--text-secondary)', fontSize: 12 }}>{selected.id} · Member since {selected.joinDate}</div>
+                                    <div style={{ color: '#64748B', fontSize: 12 }}>{selected.id} · Member since {selected.joinDate}</div>
                                     <span className={`badge ${selected.status === 'active' ? 'badge-completed' : 'badge-cancelled'}`} style={{ marginTop: 4 }}>
                                         {selected.status}
                                     </span>
@@ -129,7 +129,7 @@ export default function Customers({ onNavigate }) {
                                 ['Vehicles', selected.vehicles.join(', ')],
                             ].map(([k, v]) => (
                                 <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--border)' }}>
-                                    <span style={{ color: 'var(--text-secondary)' }}>{k}</span>
+                                    <span style={{ color: '#64748B' }}>{k}</span>
                                     <span style={{ fontWeight: 500, textAlign: 'right', maxWidth: '60%' }}>{v}</span>
                                 </div>
                             ))}
@@ -138,23 +138,23 @@ export default function Customers({ onNavigate }) {
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, marginTop: 14 }}>
                             <div style={{ background: 'rgba(245,197,24,0.08)', borderRadius: 10, padding: 10, textAlign: 'center' }}>
                                 <div style={{ fontSize: 18, fontWeight: 800, color: '#F5C518' }}>{selected.totalBookings}</div>
-                                <div style={{ fontSize: 10, color: 'var(--text-secondary)' }}>Bookings</div>
+                                <div style={{ fontSize: 10, color: '#64748B' }}>Bookings</div>
                             </div>
                             <div style={{ background: 'rgba(16,185,129,0.08)', borderRadius: 10, padding: 10, textAlign: 'center' }}>
                                 <div style={{ fontSize: 14, fontWeight: 800, color: '#10B981' }}>₹{(selected.totalSpend / 1000).toFixed(1)}K</div>
-                                <div style={{ fontSize: 10, color: 'var(--text-secondary)' }}>Spent</div>
+                                <div style={{ fontSize: 10, color: '#64748B' }}>Spent</div>
                             </div>
                             <div style={{ background: 'rgba(59,130,246,0.08)', borderRadius: 10, padding: 10, textAlign: 'center' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, fontSize: 18, fontWeight: 800, color: '#3B82F6' }}>
                                     {selected.avgRating} <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
                                 </div>
-                                <div style={{ fontSize: 10, color: 'var(--text-secondary)' }}>Rating</div>
+                                <div style={{ fontSize: 10, color: '#64748B' }}>Rating</div>
                             </div>
                         </div>
                     </div>
 
                     {/* Support note */}
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 600, marginBottom: 10 }}>Support Notes</div>
                         <textarea
                             className="input"
@@ -170,7 +170,7 @@ export default function Customers({ onNavigate }) {
                     </div>
 
                     {/* Booking History */}
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
                             <div style={{ fontWeight: 600 }}>Recent Bookings</div>
                             <button className="btn btn-ghost btn-sm" onClick={() => onNavigate && onNavigate('booking-history')}>
@@ -182,7 +182,7 @@ export default function Customers({ onNavigate }) {
                                 <div key={b.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8, padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                                     <div>
                                         <div style={{ fontSize: 13, fontWeight: 500 }}>{b.service}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.date} · {b.time}</div>
+                                        <div style={{ fontSize: 11, color: '#64748B' }}>{b.date} · {b.time}</div>
                                     </div>
                                     <div style={{ textAlign: 'right' }}>
                                         <div style={{ color: '#F5C518', fontWeight: 700 }}>₹{b.amount.toLocaleString()}</div>
@@ -192,7 +192,7 @@ export default function Customers({ onNavigate }) {
                                     </div>
                                 </div>
                             ))
-                            : <div style={{ color: 'var(--text-secondary)', fontSize: 13, textAlign: 'center', padding: 20 }}>No bookings found</div>
+                            : <div style={{ color: '#64748B', fontSize: 13, textAlign: 'center', padding: 20 }}>No bookings found</div>
                         }
                     </div>
                 </div>

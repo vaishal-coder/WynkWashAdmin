@@ -24,11 +24,11 @@ export default function Notifications() {
         <div className="animate-fade" style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 20 }}>
             {/* Send form */}
             <div>
-                <div className="card" style={{ marginBottom: 20 }}>
+                <div className="card shadow-sm"  style={{ marginBottom: 20 }}>
                     <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 18 }}>Send New Notification</div>
 
                     <div style={{ marginBottom: 14 }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>NOTIFICATION TYPE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>NOTIFICATION TYPE</div>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                             {types.map(t => (
                                 <button key={t.key}
@@ -42,7 +42,7 @@ export default function Notifications() {
                     </div>
 
                     <div style={{ marginBottom: 14 }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>SEND TO</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>SEND TO</div>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                             {audiences.map(a => (
                                 <button key={a.key}
@@ -55,13 +55,13 @@ export default function Notifications() {
                     </div>
 
                     <div style={{ marginBottom: 14 }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>TITLE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>TITLE</div>
                         <input className="input" placeholder="e.g. Heavy rain today – services delayed"
                             value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} />
                     </div>
 
                     <div style={{ marginBottom: 18 }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>MESSAGE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>MESSAGE</div>
                         <textarea className="input" rows={4}
                             placeholder="Write your notification message here..."
                             value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
@@ -73,8 +73,8 @@ export default function Notifications() {
                         <div style={{ background: 'rgba(245,197,24,0.06)', border: '1px solid rgba(245,197,24,0.2)', borderRadius: 12, padding: 14, marginBottom: 16 }}>
                             <div style={{ fontSize: 11, color: '#F5C518', marginBottom: 6, fontWeight: 600 }}>PREVIEW</div>
                             <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{form.title || '(No title)'}</div>
-                            <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>{form.message}</div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginTop: 8 }}>
+                            <div style={{ fontSize: 13, color: '#64748B' }}>{form.message}</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginTop: 8 }}>
                                 To: {audiences.find(a => a.key === form.audience)?.label}
                             </div>
                         </div>
@@ -99,16 +99,16 @@ export default function Notifications() {
                     {notifications.map(n => {
                         const typeInfo = types.find(t => t.key === n.type) || types[0];
                         return (
-                            <div key={n.id} className="card" style={{ borderLeft: `3px solid ${typeInfo.color}` }}>
+                            <div key={n.id} className="card shadow-sm"  style={{ borderLeft: `3px solid ${typeInfo.color}` }}>
                                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8 }}>
                                     <span style={{ fontSize: 11, background: `${typeInfo.color}18`, color: typeInfo.color, padding: '2px 8px', borderRadius: 20, fontWeight: 600 }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>{typeInfo.icon} {typeInfo.label}</div>
                                     </span>
-                                    <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{n.date}</span>
+                                    <span style={{ fontSize: 11, color: '#64748B' }}>{n.date}</span>
                                 </div>
-                                <div style={{ fontSize: 13, color: 'var(--text-primary)', lineHeight: 1.5, marginBottom: 8 }}>{n.message}</div>
+                                <div style={{ fontSize: 13, color: '#0F172A', lineHeight: 1.5, marginBottom: 8 }}>{n.message}</div>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                    <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>Sent to: <strong>{n.sentTo}</strong></span>
+                                    <span style={{ fontSize: 11, color: '#64748B' }}>Sent to: <strong>{n.sentTo}</strong></span>
                                     <span style={{ fontSize: 11, color: '#10B981', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg> {n.reach} reached</span>
                                 </div>
                             </div>

@@ -29,7 +29,7 @@ export default function BookingHistory({ customerId }) {
                 </select>
             </div>
 
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                 <table className="data-table">
                     <thead>
                         <tr>
@@ -61,7 +61,7 @@ export default function BookingHistory({ customerId }) {
                     </tbody>
                 </table>
                 {filtered.length === 0 && (
-                    <div style={{ padding: 40, textAlign: 'center', color: 'var(--text-secondary)' }}>
+                    <div style={{ padding: 40, textAlign: 'center', color: '#64748B' }}>
                         No bookings found for this customer.
                     </div>
                 )}

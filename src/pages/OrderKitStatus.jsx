@@ -18,12 +18,12 @@ export default function OrderKitStatus() {
         <div className="animate-fade">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <h2 style={{ fontSize: 24, fontWeight: 800 }}>Order Kit Status</h2>
-                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: 13, color: '#64748B' }}>
                     Tracks whether the worker kit is provided or not for each order.
                 </div>
             </div>
 
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                 <table className="data-table">
                     <thead>
                         <tr>

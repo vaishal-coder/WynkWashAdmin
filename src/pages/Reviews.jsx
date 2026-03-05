@@ -37,7 +37,7 @@ export default function Reviews() {
                 ].map((s, i) => (
                     <div key={i} className="stat-card">
                         <div style={{ fontSize: 24, fontWeight: 800, color: s.color }}>{s.value}</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{s.label}</div>
+                        <div style={{ fontSize: 12, color: '#64748B' }}>{s.label}</div>
                     </div>
                 ))}
             </div>
@@ -55,7 +55,7 @@ export default function Reviews() {
             <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 380px' : '1fr', gap: 16 }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                     {filtered.map(r => (
-                        <div key={r.id} className="card" style={{
+                        <div key={r.id} className="card shadow-sm"  style={{
                             cursor: 'pointer',
                             borderLeft: r.status === 'complaint' ? '3px solid #EF4444' : '3px solid transparent',
                             outline: selected?.id === r.id ? '2px solid #F5C518' : 'none',
@@ -74,7 +74,7 @@ export default function Reviews() {
                                             {r.status}
                                         </span>
                                     </div>
-                                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                                    <div style={{ fontSize: 12, color: '#64748B', marginBottom: 6 }}>
                                         {r.service} · Worker: {r.worker} · {r.date}
                                     </div>
                                     <div style={{ fontSize: 13 }}>{r.comment}</div>
@@ -85,7 +85,7 @@ export default function Reviews() {
                 </div>
 
                 {selected && (
-                    <div className="card" style={{ height: 'fit-content', position: 'sticky', top: 88 }}>
+                    <div className="card shadow-sm"  style={{ height: 'fit-content', position: 'sticky', top: 88 }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
                             <div style={{ fontWeight: 700 }}>Review Detail</div>
                             <button className="btn btn-ghost btn-sm" onClick={() => setSelected(null)}>✕</button>
@@ -96,17 +96,17 @@ export default function Reviews() {
                                 <StarRating rating={selected.rating} size={20} />
                             </div>
                             <div style={{ fontWeight: 600, marginBottom: 4 }}>{selected.customer}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{selected.service}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Worker: {selected.worker}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{selected.date}</div>
+                            <div style={{ fontSize: 12, color: '#64748B' }}>{selected.service}</div>
+                            <div style={{ fontSize: 12, color: '#64748B' }}>Worker: {selected.worker}</div>
+                            <div style={{ fontSize: 12, color: '#64748B' }}>{selected.date}</div>
                         </div>
 
-                        <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: 12, marginBottom: 16 }}>
+                        <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 10, padding: 12, marginBottom: 16 }}>
                             <p style={{ fontSize: 13, lineHeight: 1.6 }}>{selected.comment}</p>
                         </div>
 
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>ADMIN REPLY</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>ADMIN REPLY</div>
                             <textarea className="input" rows={4} placeholder="Write your response..."
                                 value={reply} onChange={e => setReply(e.target.value)} style={{ resize: 'none', marginBottom: 10 }} />
                             <div style={{ display: 'flex', gap: 8 }}>

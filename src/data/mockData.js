@@ -628,3 +628,56 @@ export const orderKitStatus = [
     { orderId: 'BK007', customer: 'Rohit Gupta', worker: 'Ramesh Singh', service: 'Premium Doorstep Wash', kitProvided: false, date: '2026-03-05' },
 ];
 
+export const workerVerifications = [
+    {
+        id: 'VR001',
+        workerName: 'Sanjay Dutt',
+        phone: '9876543210',
+        email: 'sanjay@example.com',
+        appliedDate: '2026-03-01',
+        status: 'pending',
+        documents: {
+            aadhar: { front: 'https://via.placeholder.com/300x200?text=Aadhar+Front', back: 'https://via.placeholder.com/300x200?text=Aadhar+Back', status: 'pending' },
+            license: { front: 'https://via.placeholder.com/300x200?text=License+Front', back: 'https://via.placeholder.com/300x200?text=License+Back', status: 'pending' },
+            selfie: { url: 'https://via.placeholder.com/200?text=Selfie', status: 'pending' },
+        },
+        bankDetails: {
+            holder: 'Sanjay Dutt',
+            account: '123456789012',
+            ifsc: 'SBIN0001234',
+            bankName: 'State Bank of India',
+            status: 'pending'
+        },
+        workPreferences: {
+            areas: 'North Bangalore (Hebbal, Yelahanka)',
+            services: 'Premium Wash, Interior Cleaning',
+            availability: 'Full-time'
+        }
+    },
+    {
+        id: 'VR002',
+        workerName: 'Arjun Kapoor',
+        phone: '9823456789',
+        email: 'arjun@example.com',
+        appliedDate: '2026-03-02',
+        status: 'pending',
+        documents: {
+            aadhar: { front: 'https://via.placeholder.com/300x200?text=Aadhar+Front', back: 'https://via.placeholder.com/300x200?text=Aadhar+Back', status: 'verified' },
+            license: { front: 'https://via.placeholder.com/300x200?text=License+Front', back: 'https://via.placeholder.com/300x200?text=License+Back', status: 'pending' },
+            selfie: { url: 'https://via.placeholder.com/200?text=Selfie', status: 'verified' },
+        },
+        bankDetails: {
+            holder: 'Arjun Kapoor',
+            account: '987654321098',
+            ifsc: 'HDFC0004567',
+            bankName: 'HDFC Bank',
+            status: 'pending'
+        },
+        workPreferences: {
+            areas: 'South Bangalore (Jayanagar, JP Nagar)',
+            services: 'Detailing, Polishing',
+            availability: 'Part-time'
+        }
+    }
+];
+

@@ -27,55 +27,69 @@ function BookingModal({ booking, onClose, onUpdate }) {
                 <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>CUSTOMER</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>CUSTOMER</div>
                             <div style={{ fontWeight: 600 }}>{booking.customer}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{booking.customerPhone}</div>
+                            <div style={{ fontSize: 12, color: '#64748B' }}>{booking.customerPhone}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>VEHICLE</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>VEHICLE</div>
                             <div style={{ fontWeight: 600 }}>{booking.vehicle}</div>
-                            <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{booking.vehicleNo}</div>
+                            <div style={{ fontSize: 12, color: '#64748B' }}>{booking.vehicleNo}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>SERVICE</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>SERVICE</div>
                             <div style={{ fontWeight: 600 }}>{booking.service}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>AMOUNT</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>AMOUNT</div>
                             <div style={{ fontWeight: 700, color: '#F5C518', fontSize: 18 }}>₹{booking.amount.toLocaleString()}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>DATE & TIME</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>DATE & TIME</div>
                             <div style={{ fontWeight: 600 }}>{booking.date} · {booking.time}</div>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 4 }}>LOCATION</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>LOCATION</div>
                             <div style={{ fontWeight: 600 }}>{booking.location}</div>
                         </div>
                     </div>
-
-
-
-                    <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>CANCEL BOOKING</div>
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16 }}>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>UPDATE STATUS</div>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                             <button
                                 className={`btn btn-sm ${status === 'cancelled' ? 'btn-danger' : 'btn-ghost'}`}
-                                onClick={() => setStatus('cancelled')}
-                                disabled={booking.status === 'cancelled' || booking.status === 'completed'}
+                                style={{ fontSize: 11, padding: '6px 10px', ...(status === 'cancelled' ? {} : { border: '1px solid var(--border)' }) }}
+                                onClick={() => setStatus(status === 'cancelled' ? booking.status : 'cancelled')}
                             >
-                                Mark as Cancelled
+                                {status === 'cancelled' ? 'Will Cancel' : 'Cancel Booking'}
                             </button>
                         </div>
                     </div>
+
+                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16 }}>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>ASSIGN / REASSIGN WORKER</div>
+                        <select className="select" value={worker} onChange={e => setWorker(e.target.value)}>
+                            <option value="">— Select Worker —</option>
+                            {workers.filter(w => w.status !== 'leave').map(w => (
+                                <option key={w.id} value={w.name}>{w.name} ({w.status}) — {w.zone}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn btn-ghost" onClick={onClose}>Close</button>
-                    {status === 'cancelled' && booking.status !== 'cancelled' && (
-                        <button className="btn btn-danger" onClick={() => { onUpdate({ ...booking, status: 'cancelled' }); onClose(); }}>
-                            Confirm Cancellation
-                        </button>
-                    )}
+                    <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+                    <button className="btn btn-primary" onClick={() => {
+                        const workerObj = workers.find(w => w.name === worker);
+                        onUpdate({
+                            ...booking,
+                            status,
+                            worker: worker || null,
+                            workerId: workerObj ? workerObj.id : null
+                        });
+                        onClose();
+                    }}>
+                        Save Changes
+                    </button>
                 </div>
             </div>
         </div>
@@ -137,7 +151,7 @@ export default function Bookings() {
             </div>
 
             {/* Table */}
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
                 <div style={{ overflowX: 'auto' }}>
                     <table className="data-table">
                         <thead>
@@ -159,25 +173,25 @@ export default function Bookings() {
                                     <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#F5C518' }}>{b.id}</span></td>
                                     <td>
                                         <div style={{ fontWeight: 600 }}>{b.customer}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.customerPhone}</div>
+                                        <div style={{ fontSize: 11, color: '#64748B' }}>{b.customerPhone}</div>
                                     </td>
                                     <td>
                                         <div style={{ fontSize: 13 }}>{b.vehicle.split('(')[0].trim()}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.vehicleNo}</div>
+                                        <div style={{ fontSize: 11, color: '#64748B' }}>{b.vehicleNo}</div>
                                     </td>
                                     <td style={{ fontSize: 12, maxWidth: 140 }}>{b.service}</td>
                                     <td>
                                         {b.worker
                                             ? <div>
                                                 <div style={{ fontSize: 13 }}>{b.worker}</div>
-                                                <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.workerId}</div>
+                                                <div style={{ fontSize: 11, color: '#64748B' }}>{b.workerId}</div>
                                             </div>
-                                            : <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Unassigned</span>
+                                            : <span style={{ fontSize: 12, color: '#64748B' }}>Unassigned</span>
                                         }
                                     </td>
                                     <td>
                                         <div style={{ fontWeight: 500, fontSize: 12 }}>{b.date}</div>
-                                        <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.time}</div>
+                                        <div style={{ fontSize: 11, color: '#64748B' }}>{b.time}</div>
                                     </td>
                                     <td style={{ fontWeight: 700, color: '#F5C518' }}>₹{b.amount.toLocaleString()}</td>
                                     <td><span className={`badge ${statusColor[b.status]}`}>{statusLabels[b.status]}</span></td>
@@ -201,10 +215,24 @@ export default function Bookings() {
                                 </tr>
                             ))}
                             {filtered.length === 0 && (
-                                <tr><td colSpan={9} style={{ textAlign: 'center', padding: 40, color: 'var(--text-secondary)' }}>No bookings found</td></tr>
+                                <tr><td colSpan={9} style={{ textAlign: 'center', padding: 40, color: '#64748B' }}>No bookings found</td></tr>
                             )}
                         </tbody>
                     </table>
+                </div>
+
+                {/* Pagination */}
+                <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: '#FFFFFF' }}>
+                    <div style={{ fontSize: 13, color: '#64748B' }}>
+                        Showing <span style={{ fontWeight: 600, color: '#0F172A' }}>1</span> to <span style={{ fontWeight: 600, color: '#0F172A' }}>{filtered.length}</span> of <span style={{ fontWeight: 600, color: '#0F172A' }}>{filtered.length}</span> results
+                    </div>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                        <button className="btn btn-ghost btn-sm" disabled style={{ opacity: 0.5 }}>Previous</button>
+                        <button className="btn btn-primary btn-sm" style={{ width: 32, padding: 0 }}>1</button>
+                        <button className="btn btn-ghost btn-sm" style={{ width: 32, padding: 0 }}>2</button>
+                        <button className="btn btn-ghost btn-sm" style={{ width: 32, padding: 0 }}>3</button>
+                        <button className="btn btn-ghost btn-sm">Next</button>
+                    </div>
                 </div>
             </div>
 

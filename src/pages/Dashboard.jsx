@@ -34,19 +34,7 @@ const Sparkline = ({ color }) => {
 
 const StatCard = ({ icon, label, value, sub, color, change }) => (
     <div
-        className="animate-fade"
-        style={{
-            position: 'relative', overflow: 'hidden',
-            background: 'rgba(255,255,255,0.035)',
-            border: '1px solid rgba(255,255,255,0.07)',
-            borderRadius: 18,
-            padding: '22px 22px 18px',
-            display: 'flex', flexDirection: 'column', gap: 14,
-            backdropFilter: 'blur(8px)',
-            transition: 'transform 0.2s, box-shadow 0.2s',
-            cursor: 'default',
-            minHeight: 156,
-        }}
+        className="animate-fade card shadow-sm" style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.08)', borderRadius: '16px' }}
         onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.35)'; }}
         onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
     >
@@ -61,8 +49,8 @@ const StatCard = ({ icon, label, value, sub, color, change }) => (
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{
                 width: 40, height: 40, borderRadius: 11,
-                background: 'rgba(255,255,255,0.06)',
-                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(0, 0, 0, 0.06)',
+                border: '1px solid rgba(0,0,0,0.1)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,10 +73,10 @@ const StatCard = ({ icon, label, value, sub, color, change }) => (
 
         {/* Value + label */}
         <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-0.03em', color: '#F0F4FF', lineHeight: 1 }}>
+            <div style={{ fontSize: 28, fontWeight: 800, letterSpacing: '-0.03em', color: '#0F172A', lineHeight: 1 }}>
                 {value}
             </div>
-            <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.8)', fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', marginTop: 6 }}>
+            <div style={{ fontSize: 11, color: '#64748B', fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', marginTop: 6 }}>
                 {label}
             </div>
         </div>
@@ -97,14 +85,14 @@ const StatCard = ({ icon, label, value, sub, color, change }) => (
         <div style={{ position: 'absolute', bottom: 14, right: 16, opacity: 0.7 }}>
             <Sparkline color={color} />
         </div>
-    </div>
+    </div >
 );
 
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
             <div style={{ background: 'var(--navy-light)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', fontSize: 12 }}>
-                <div style={{ color: 'var(--text-secondary)', marginBottom: 6 }}>{label}</div>
+                <div style={{ color: '#64748B', marginBottom: 6 }}>{label}</div>
                 {payload.map((p, i) => (
                     <div key={i} style={{ color: p.color, fontWeight: 600 }}>
                         {p.name}: {p.name === 'revenue' ? fmt(p.value) : p.value}
@@ -149,11 +137,11 @@ export default function Dashboard() {
 
             {/* Revenue Chart + Pie */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 360px', gap: 24, marginBottom: 24 }}>
-                <div className="card" style={{ padding: '28px' }}>
+                <div className="card shadow-sm" style={{ padding: '28px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
                         <div>
-                            <div style={{ fontWeight: 800, fontSize: 18, color: '#FFF' }}>Revenue Overview</div>
-                            <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginTop: 4 }}>Last 7 months performance</div>
+                            <div style={{ fontWeight: 800, fontSize: 18, color: '#0F172A' }}>Revenue Overview</div>
+                            <div style={{ fontSize: 13, color: '#64748B', marginTop: 4 }}>Last 7 months performance</div>
                         </div>
                         <div style={{ background: 'linear-gradient(135deg, rgba(245,197,24,0.15), rgba(245,197,24,0.05))', color: '#F5C518', padding: '6px 14px', borderRadius: 20, fontSize: 13, fontWeight: 700, border: '1px solid rgba(245,197,24,0.3)', boxShadow: '0 4px 12px rgba(245, 197, 24, 0.1)' }}>
                             Monthly
@@ -167,18 +155,18 @@ export default function Dashboard() {
                                     <stop offset="95%" stopColor="#F5C518" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid stroke="rgba(255,255,255,0.08)" vertical={false} />
-                            <XAxis dataKey="month" tick={{ fill: 'var(--text-secondary)', fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
-                            <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 12, fontWeight: 500 }} axisLine={false} tickLine={false} tickFormatter={v => '₹' + (v / 1000) + 'K'} />
+                            <CartesianGrid stroke="rgba(0,0,0,0.06)" vertical={false} />
+                            <XAxis dataKey="month" tick={{ fill: '#64748B', fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} dy={10} />
+                            <YAxis tick={{ fill: '#64748B', fontSize: 11, fontWeight: 500 }} axisLine={false} tickLine={false} tickFormatter={v => '₹' + (v / 1000) + 'K'} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Area type="monotone" dataKey="revenue" name="revenue" stroke="#F5C518" strokeWidth={3} fill="url(#revGrad)" dot={{ fill: '#0A0F1C', stroke: '#F5C518', strokeWidth: 3, r: 5 }} activeDot={{ r: 7, fill: '#F5C518', stroke: '#FFF', strokeWidth: 3 }} />
+                            <Area type="monotone" dataKey="revenue" name="revenue" stroke="#F5C518" strokeWidth={4} fill="url(#revGrad)" dot={{ fill: '#FFFFFF', stroke: '#F5C518', strokeWidth: 2, r: 4 }} activeDot={{ r: 6, fill: '#F5C518', stroke: '#FFFFFF', strokeWidth: 3 }} />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>
 
-                <div className="card" style={{ padding: '28px' }}>
-                    <div style={{ fontWeight: 800, fontSize: 18, color: '#FFF', marginBottom: 4 }}>Service Popularity</div>
-                    <div style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: 20 }}>By booking volume</div>
+                <div className="card shadow-sm" style={{ padding: '28px' }}>
+                    <div style={{ fontWeight: 800, fontSize: 18, color: '#0F172A', marginBottom: 4 }}>Service Popularity</div>
+                    <div style={{ fontSize: 13, color: '#64748B', marginBottom: 20 }}>By booking volume</div>
                     <ResponsiveContainer width="100%" height={170}>
                         <PieChart>
                             <Pie data={servicePopularity} dataKey="value" cx="50%" cy="50%" innerRadius={50} outerRadius={80} paddingAngle={4} stroke="var(--card-bg)" strokeWidth={3}>
@@ -191,7 +179,7 @@ export default function Dashboard() {
                         {servicePopularity.map((s, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                                 <div style={{ width: 10, height: 10, borderRadius: '50%', background: s.color, flexShrink: 0, boxShadow: `0 0 10px ${s.color}80` }} />
-                                <div style={{ fontSize: 13, color: 'var(--text-primary)', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 500 }}>{s.name}</div>
+                                <div style={{ fontSize: 13, color: '#0F172A', flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontWeight: 500 }}>{s.name}</div>
                                 <div style={{ fontSize: 13, fontWeight: 700, color: s.color }}>{s.value}%</div>
                             </div>
                         ))}
@@ -201,12 +189,12 @@ export default function Dashboard() {
 
             {/* Weekly Bar + Recent Orders */}
             <div style={{ display: 'grid', gridTemplateColumns: '340px 1fr', gap: 16, marginBottom: 16 }}>
-                <div className="card">
+                <div className="card shadow-sm" >
                     <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Weekly Orders</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 16 }}>Current week</div>
+                    <div style={{ fontSize: 12, color: '#64748B', marginBottom: 16 }}>Current week</div>
                     <ResponsiveContainer width="100%" height={180}>
                         <BarChart data={weeklyData} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
-                            <CartesianGrid stroke="rgba(255,255,255,0.04)" horizontal={false} />
+                            <CartesianGrid stroke="rgba(15, 23, 42,0.04)" horizontal={false} />
                             <XAxis dataKey="day" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <Tooltip content={<CustomTooltip />} />
@@ -215,7 +203,7 @@ export default function Dashboard() {
                     </ResponsiveContainer>
                 </div>
 
-                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
                     <div style={{ padding: '18px 20px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)' }}>
                         <div style={{ fontWeight: 700, fontSize: 16 }}>Recent Orders</div>
                         <button className="btn btn-ghost btn-sm">View All</button>
@@ -238,10 +226,10 @@ export default function Dashboard() {
                                         <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#F5C518' }}>{b.id}</span></td>
                                         <td>
                                             <div style={{ fontWeight: 500 }}>{b.customer}</div>
-                                            <div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{b.vehicle.split('(')[0].trim()}</div>
+                                            <div style={{ fontSize: 11, color: '#64748B' }}>{b.vehicle.split('(')[0].trim()}</div>
                                         </td>
                                         <td style={{ fontSize: 12 }}>{b.service}</td>
-                                        <td style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{b.worker || '—'}</td>
+                                        <td style={{ fontSize: 12, color: '#64748B' }}>{b.worker || '—'}</td>
                                         <td style={{ fontWeight: 600, color: '#F5C518' }}>₹{b.amount.toLocaleString()}</td>
                                         <td><span className={`badge ${statusColor[b.status]}`}>{b.status}</span></td>
                                     </tr>
@@ -256,12 +244,11 @@ export default function Dashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
 
 
-                <div className="card">
-                    <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Customer Growth</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 16 }}>New vs. returning</div>
+                <div className="card shadow-sm" >
+                    <div style={{ fontWeight: 700, fontSize: 16, color: '#0F172A', marginBottom: 16 }}>Customer Growth</div>
                     <ResponsiveContainer width="100%" height={170}>
                         <LineChart data={revenueData} margin={{ top: 0, right: 8, bottom: 0, left: -20 }}>
-                            <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
+                            <CartesianGrid stroke="rgba(15, 23, 42,0.04)" vertical={false} />
                             <XAxis dataKey="month" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <Tooltip content={<CustomTooltip />} />

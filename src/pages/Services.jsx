@@ -33,34 +33,34 @@ function ServiceModal({ service, onClose }) {
                 <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div style={{ gridColumn: '1 / -1' }}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>SERVICE NAME</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>SERVICE NAME</div>
                             <input className="input" value={form.name} placeholder="e.g. Premium Doorstep Wash"
                                 onChange={e => setForm({ ...form, name: e.target.value })} />
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>CATEGORY</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>CATEGORY</div>
                             <select className="select" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>
                                 {Object.keys(CAT_COLOR).map(c => <option key={c}>{c}</option>)}
                             </select>
                         </div>
                         <div>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>DURATION</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>DURATION</div>
                             <input className="input" value={form.duration} placeholder="e.g. 45 mins"
                                 onChange={e => setForm({ ...form, duration: e.target.value })} />
                         </div>
                         <div style={{ gridColumn: '1 / -1' }}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>DESCRIPTION</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>DESCRIPTION</div>
                             <textarea className="input" rows={2} value={form.description} placeholder="Service description..."
                                 onChange={e => setForm({ ...form, description: e.target.value })} style={{ resize: 'none' }} />
                         </div>
                     </div>
 
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 10 }}>PRICING BY VEHICLE TYPE (₹)</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 10 }}>PRICING BY VEHICLE TYPE (₹)</div>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 8 }}>
                             {vehicleTypes.map(v => (
                                 <div key={v}>
-                                    <div style={{ fontSize: 10, color: 'var(--text-secondary)', marginBottom: 4 }}>{v}</div>
+                                    <div style={{ fontSize: 10, color: '#64748B', marginBottom: 4 }}>{v}</div>
                                     <input className="input" type="number" style={{ paddingLeft: 10 }}
                                         value={form.pricing[v] || ''}
                                         placeholder="—"
@@ -71,7 +71,7 @@ function ServiceModal({ service, onClose }) {
                     </div>
 
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 10 }}>PRODUCTS USED</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 10 }}>PRODUCTS USED</div>
                         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 8 }}>
                             {form.products.map((p, i) => (
                                 <span key={i} className="badge badge-yellow" style={{ cursor: 'pointer', fontSize: 11 }}
@@ -112,8 +112,8 @@ function DeleteConfirm({ service, onClose, onConfirm }) {
                     <button className="btn btn-ghost btn-sm" onClick={onClose}>✕</button>
                 </div>
                 <div className="modal-body">
-                    <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text-secondary)' }}>
-                        Are you sure you want to delete <strong style={{ color: '#F0F4FF' }}>{service.name}</strong>?
+                    <p style={{ fontSize: 14, lineHeight: 1.7, color: '#64748B' }}>
+                        Are you sure you want to delete <strong style={{ color: '#0F172A' }}>{service.name}</strong>?
                         This action cannot be undone and will affect all linked bookings.
                     </p>
                 </div>
@@ -132,16 +132,7 @@ function ServiceCard({ sv, onEdit, onDelete, onToggle }) {
 
     return (
         <div
-            style={{
-                position: 'relative', overflow: 'hidden',
-                background: 'rgba(255,255,255,0.035)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 20,
-                display: 'flex', flexDirection: 'column', gap: 0,
-                backdropFilter: 'blur(8px)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                opacity: sv.active ? 1 : 0.55,
-            }}
+            className="card"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.3)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
         >
@@ -168,21 +159,21 @@ function ServiceCard({ sv, onEdit, onDelete, onToggle }) {
                             border: sv.active ? '1px solid rgba(52,211,153,0.2)' : '1px solid rgba(248,113,113,0.2)',
                         }}>{sv.active ? 'Active' : 'Inactive'}</span>
                     </div>
-                    <div style={{ fontWeight: 800, fontSize: 17, color: '#F0F4FF', letterSpacing: '-0.01em', lineHeight: 1.3 }}>{sv.name}</div>
-                    <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.75)', marginTop: 6, lineHeight: 1.5 }}>{sv.description}</div>
+                    <div style={{ fontWeight: 800, fontSize: 17, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.3 }}>{sv.name}</div>
+                    <div style={{ fontSize: 12, color: '#475569', marginTop: 6, lineHeight: 1.5 }}>{sv.description}</div>
                 </div>
 
                 {/* Pricing */}
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 14, padding: '14px 16px' }}>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(148,163,184,0.6)', letterSpacing: '0.08em', marginBottom: 12 }}>PRICING (₹)</div>
+                <div style={{ background: '#F8FAFC', border: '1px solid rgba(0,0,0,0.05)', borderRadius: 14, padding: '14px 16px' }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', marginBottom: 12 }}>PRICING (₹)</div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
                         {vehicleTypes.filter(v => sv.pricing[v]).map(v => (
                             <div key={v} style={{
                                 flex: '1 1 auto', minWidth: 64, textAlign: 'center',
-                                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
+                                background: '#F8FAFC', border: '1px solid rgba(0,0,0,0.06)',
                                 borderRadius: 10, padding: '8px 6px',
                             }}>
-                                <div style={{ fontSize: 9, color: 'rgba(148,163,184,0.6)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{v}</div>
+                                <div style={{ fontSize: 9, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{v}</div>
                                 <div style={{ fontSize: 14, fontWeight: 800, color: '#F5C518', marginTop: 3 }}>₹{sv.pricing[v]?.toLocaleString()}</div>
                             </div>
                         ))}
@@ -191,7 +182,7 @@ function ServiceCard({ sv, onEdit, onDelete, onToggle }) {
 
                 {/* Products */}
                 <div>
-                    <div style={{ fontSize: 10, fontWeight: 700, color: 'rgba(148,163,184,0.6)', letterSpacing: '0.08em', marginBottom: 8 }}>PRODUCTS</div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', marginBottom: 8 }}>PRODUCTS</div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5 }}>
                         {sv.products.map((p, i) => (
                             <span key={i} style={{
@@ -207,33 +198,33 @@ function ServiceCard({ sv, onEdit, onDelete, onToggle }) {
             {/* Footer */}
             <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                padding: '14px 24px', borderTop: '1px solid rgba(255,255,255,0.06)',
-                background: 'rgba(255,255,255,0.02)',
+                padding: '14px 24px', borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                background: 'rgba(0,0,0,0.02)',
             }}>
-                <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: 12, color: '#64748B' }}>
                     <span style={{ color: '#34D399', fontWeight: 700 }}>{sv.bookingsThisMonth}</span> bookings · {sv.duration}
                 </div>
                 <div style={{ display: 'flex', gap: 8 }}>
                     <button
                         onClick={() => onToggle(sv)}
                         style={{
-                            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                            color: 'rgba(148,163,184,0.85)', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 600,
+                            background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)',
+                            color: '#334155', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 600,
                             cursor: 'pointer', transition: 'all 0.15s'
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}>
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.06)'}>
                         {sv.active ? 'Disable' : 'Enable'}
                     </button>
                     <button
                         onClick={() => onEdit(sv)}
                         style={{
-                            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                            color: '#F0F4FF', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 600,
+                            background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)',
+                            color: '#0F172A', borderRadius: 8, padding: '6px 12px', fontSize: 11, fontWeight: 600,
                             cursor: 'pointer', transition: 'all 0.15s'
                         }}
-                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}>
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.06)'}>
                         Edit
                     </button>
                     <button
@@ -249,7 +240,7 @@ function ServiceCard({ sv, onEdit, onDelete, onToggle }) {
                     </button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 
@@ -296,7 +287,7 @@ export default function Services() {
                         onToggle={handleToggle} />
                 ))}
                 {filtered.length === 0 && (
-                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>
+                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: 60, color: '#64748B' }}>
                         No services found
                     </div>
                 )}

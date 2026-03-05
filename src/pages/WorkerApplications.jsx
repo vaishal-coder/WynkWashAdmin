@@ -12,12 +12,12 @@ export default function WorkerApplications() {
         <div className="animate-fade">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <h2 style={{ fontSize: 24, fontWeight: 800 }}>Worker Applications</h2>
-                <div style={{ fontSize: 13, color: 'var(--text-secondary)' }}>
+                <div style={{ fontSize: 13, color: '#64748B' }}>
                     Total Applications: {data.length}
                 </div>
             </div>
 
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                 <table className="data-table">
                     <thead>
                         <tr>
@@ -35,7 +35,7 @@ export default function WorkerApplications() {
                             <tr key={app.id}>
                                 <td>
                                     <div style={{ fontWeight: 600 }}>{app.name}</div>
-                                    <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{app.phone} · {app.email}</div>
+                                    <div style={{ fontSize: 12, color: '#64748B' }}>{app.phone} · {app.email}</div>
                                 </td>
                                 <td style={{ fontSize: 13 }}>{app.experience}</td>
                                 <td style={{ fontSize: 13 }}>{app.zone}</td>
@@ -69,7 +69,7 @@ export default function WorkerApplications() {
                                             </button>
                                         </div>
                                     ) : (
-                                        <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Handled</span>
+                                        <span style={{ fontSize: 12, color: '#64748B' }}>Handled</span>
                                     )}
                                 </td>
                             </tr>

@@ -47,7 +47,7 @@ export default function Settings() {
                         { label: 'GST Number', key: 'gst' },
                     ].map(f => (
                         <div key={f.key}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
                             <input className="input" value={general[f.key]} onChange={e => setGeneral({ ...general, [f.key]: e.target.value })} />
                         </div>
                     ))}
@@ -59,7 +59,7 @@ export default function Settings() {
 
             {activeTab === 'commission' && (
                 <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 16 }}>Commission Settings</div>
                         {[
                             { label: 'Default Commission %', value: '20', suffix: '%' },
@@ -85,7 +85,7 @@ export default function Settings() {
 
             {activeTab === 'api' && (
                 <div style={{ maxWidth: 700, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 16 }}>AI & Automation Settings</div>
                         {[
                             { label: 'AI Worker Auto-Assignment', desc: 'Automatically assign nearest available worker to new bookings', enabled: true },
@@ -99,19 +99,19 @@ export default function Settings() {
                             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid var(--border)' }}>
                                 <div style={{ flex: 1 }}>
                                     <div style={{ fontWeight: 600, fontSize: 13 }}>{s.label}</div>
-                                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginTop: 2 }}>{s.desc}</div>
+                                    <div style={{ fontSize: 12, color: '#64748B', marginTop: 2 }}>{s.desc}</div>
                                 </div>
                                 <label style={{ position: 'relative', display: 'inline-block', width: 46, height: 26, flexShrink: 0, cursor: 'pointer' }}>
                                     <input type="checkbox" defaultChecked={s.enabled} style={{ opacity: 0, width: 0, height: 0 }}
                                         onChange={() => { }} />
                                     <span style={{
                                         position: 'absolute', inset: 0, borderRadius: 26, cursor: 'pointer',
-                                        background: s.enabled ? '#F5C518' : 'rgba(255,255,255,0.1)',
+                                        background: s.enabled ? '#F5C518' : 'rgba(0,0,0,0.1)',
                                         transition: '0.3s',
                                     }}>
                                         <span style={{
                                             position: 'absolute', height: 20, width: 20, left: s.enabled ? 23 : 3, bottom: 3,
-                                            background: s.enabled ? '#0B1F3A' : 'rgba(255,255,255,0.6)',
+                                            background: s.enabled ? '#0B1F3A' : 'rgba(15, 23, 42,0.6)',
                                             borderRadius: '50%', transition: '0.3s',
                                         }} />
                                     </span>
@@ -119,7 +119,7 @@ export default function Settings() {
                             </div>
                         ))}
                     </div>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 14 }}>API Keys</div>
                         {[
                             { label: 'Google Maps API Key', placeholder: 'AIzaSy...' },
@@ -128,7 +128,7 @@ export default function Settings() {
                             { label: 'SMS Gateway API Key', placeholder: 'Your SMS API key' },
                         ].map((k, i) => (
                             <div key={i} style={{ marginBottom: 12 }}>
-                                <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>{k.label.toUpperCase()}</div>
+                                <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{k.label.toUpperCase()}</div>
                                 <input className="input" type="password" placeholder={k.placeholder} />
                             </div>
                         ))}
@@ -142,7 +142,7 @@ export default function Settings() {
                     <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 14 }}>
                         <button className="btn btn-primary btn-sm">+ Add Admin User</button>
                     </div>
-                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                         <table className="data-table">
                             <thead>
                                 <tr><th>Name</th><th>Email</th><th>Role</th><th>Added</th><th>Status</th><th>Actions</th></tr>
@@ -157,7 +157,7 @@ export default function Settings() {
                                         <td style={{ fontWeight: 600 }}>{a.name}</td>
                                         <td style={{ fontSize: 12 }}>{a.email}</td>
                                         <td><span className="badge badge-yellow" style={{ fontSize: 10 }}>{a.role}</span></td>
-                                        <td style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{a.added}</td>
+                                        <td style={{ fontSize: 12, color: '#64748B' }}>{a.added}</td>
                                         <td><span className="badge badge-completed">{a.status}</span></td>
                                         <td>
                                             <div style={{ display: 'flex', gap: 6 }}>
@@ -175,7 +175,7 @@ export default function Settings() {
 
             {activeTab === 'notifications' && (
                 <div style={{ maxWidth: 600, display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 16 }}>Notification Preferences</div>
                         {[
                             'New booking created',

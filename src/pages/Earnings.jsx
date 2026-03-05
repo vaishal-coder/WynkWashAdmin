@@ -8,7 +8,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
             <div style={{ background: 'var(--navy-light)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', fontSize: 12 }}>
-                <div style={{ color: 'var(--text-secondary)', marginBottom: 6 }}>{label}</div>
+                <div style={{ color: '#64748B', marginBottom: 6 }}>{label}</div>
                 {payload.map((p, i) => (
                     <div key={i} style={{ color: p.color, fontWeight: 600 }}>
                         {p.name}: {fmt(p.value)}
@@ -38,18 +38,18 @@ export default function Earnings() {
                 {summary.map((s, i) => (
                     <div key={i} className="stat-card">
                         <div style={{ fontSize: 22, fontWeight: 800, color: s.color }}>{s.value}</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{s.label}</div>
+                        <div style={{ fontSize: 12, color: '#64748B' }}>{s.label}</div>
                         {s.change && <div style={{ fontSize: 11, color: s.change.startsWith('+') ? '#10B981' : '#EF4444', fontWeight: 600 }}>{s.change} vs last month</div>}
                     </div>
                 ))}
             </div>
 
             {/* Earnings bar chart */}
-            <div className="card" style={{ marginBottom: 20 }}>
+            <div className="card shadow-sm"  style={{ marginBottom: 20 }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                     <div>
                         <div style={{ fontWeight: 700, fontSize: 16 }}>Earnings Breakdown</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>Revenue, Commission & Payouts</div>
+                        <div style={{ fontSize: 12, color: '#64748B' }}>Revenue, Commission & Payouts</div>
                     </div>
                     <button className="btn btn-ghost btn-sm">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
@@ -58,11 +58,11 @@ export default function Earnings() {
                 </div>
                 <ResponsiveContainer width="100%" height={260}>
                     <BarChart data={earningsData} margin={{ top: 0, right: 0, bottom: 0, left: -10 }} barGap={4}>
-                        <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
+                        <CartesianGrid stroke="rgba(15, 23, 42,0.04)" vertical={false} />
                         <XAxis dataKey="month" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                         <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => '₹' + (v / 1000) + 'K'} />
                         <Tooltip content={<CustomTooltip />} />
-                        <Legend wrapperStyle={{ fontSize: 12, color: 'var(--text-secondary)', paddingTop: 16 }} />
+                        <Legend wrapperStyle={{ fontSize: 12, color: '#64748B', paddingTop: 16 }} />
                         <Bar dataKey="revenue" name="Revenue" fill="#F5C518" radius={[4, 4, 0, 0]} opacity={0.9} />
                         <Bar dataKey="commission" name="Commission" fill="#10B981" radius={[4, 4, 0, 0]} opacity={0.9} />
                         <Bar dataKey="payouts" name="Payouts" fill="#3B82F6" radius={[4, 4, 0, 0]} opacity={0.9} />
@@ -71,7 +71,7 @@ export default function Earnings() {
             </div>
 
             {/* Worker payouts */}
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                 <div style={{ padding: '18px 20px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--border)' }}>
                     <div style={{ fontWeight: 700, fontSize: 16 }}>Worker Payout Management</div>
                     <button className="btn btn-primary btn-sm">Approve All Pending</button>

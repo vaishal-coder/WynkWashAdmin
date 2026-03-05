@@ -17,6 +17,7 @@ import Settings from './pages/Settings';
 import WorkerApplications from './pages/WorkerApplications';
 import BookingHistory from './pages/BookingHistory';
 import OrderKitStatus from './pages/OrderKitStatus';
+import Verification from './pages/Verification';
 
 const pages = {
   dashboard: Dashboard,
@@ -35,6 +36,7 @@ const pages = {
   'worker-applications': WorkerApplications,
   'booking-history': BookingHistory,
   'order-kit-status': OrderKitStatus,
+  'verification': Verification,
 };
 
 export default function App() {

@@ -8,7 +8,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
             <div style={{ background: 'var(--navy-light)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', fontSize: 12 }}>
-                <div style={{ color: 'var(--text-secondary)', marginBottom: 6 }}>{label}</div>
+                <div style={{ color: '#64748B', marginBottom: 6 }}>{label}</div>
                 {payload.map((p, i) => (
                     <div key={i} style={{ color: p.color || '#F5C518', fontWeight: 600 }}>
                         {p.name}: {typeof p.value === 'number' && p.value > 1000 ? fmt(p.value) : p.value}
@@ -85,9 +85,9 @@ export default function Reports() {
 
             {activeReport === 'monthly' && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Monthly Revenue Report</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 20 }}>Last 6 months</div>
+                        <div style={{ fontSize: 12, color: '#64748B', marginBottom: 20 }}>Last 6 months</div>
                         <ResponsiveContainer width="100%" height={280}>
                             <AreaChart data={earningsData} margin={{ top: 0, right: 0, bottom: 0, left: -10 }}>
                                 <defs>
@@ -100,18 +100,18 @@ export default function Reports() {
                                         <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
+                                <CartesianGrid stroke="rgba(15, 23, 42,0.04)" vertical={false} />
                                 <XAxis dataKey="month" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                                 <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => '₹' + (v / 1000) + 'K'} />
                                 <Tooltip content={<CustomTooltip />} />
-                                <Legend wrapperStyle={{ fontSize: 12, color: 'var(--text-secondary)', paddingTop: 12 }} />
+                                <Legend wrapperStyle={{ fontSize: 12, color: '#64748B', paddingTop: 12 }} />
                                 <Area type="monotone" dataKey="revenue" name="Revenue" stroke="#F5C518" strokeWidth={2.5} fill="url(#revG)" />
                                 <Area type="monotone" dataKey="commission" name="Commission" stroke="#10B981" strokeWidth={2.5} fill="url(#comG)" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
                     {/* Monthly table */}
-                    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                         <div style={{ padding: '16px 20px', fontWeight: 700, fontSize: 15, borderBottom: '1px solid var(--border)' }}>Monthly Breakdown</div>
                         <table className="data-table">
                             <thead>
@@ -135,17 +135,17 @@ export default function Reports() {
             )}
 
             {activeReport === 'revenue' && (
-                <div className="card">
+                <div className="card shadow-sm" >
                     <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Daily Revenue (This Week)</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 20 }}>Orders and earned revenue per day</div>
+                    <div style={{ fontSize: 12, color: '#64748B', marginBottom: 20 }}>Orders and earned revenue per day</div>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={weeklyData} margin={{ top: 0, right: 0, bottom: 0, left: -10 }}>
-                            <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
+                            <CartesianGrid stroke="rgba(15, 23, 42,0.04)" vertical={false} />
                             <XAxis dataKey="day" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <YAxis yAxisId="left" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <YAxis yAxisId="right" orientation="right" tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => '₹' + (v / 1000) + 'K'} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Legend wrapperStyle={{ fontSize: 12, color: 'var(--text-secondary)', paddingTop: 12 }} />
+                            <Legend wrapperStyle={{ fontSize: 12, color: '#64748B', paddingTop: 12 }} />
                             <Bar yAxisId="left" dataKey="orders" name="Orders" fill="#3B82F6" radius={[4, 4, 0, 0]} />
                             <Bar yAxisId="right" dataKey="revenue" name="Revenue" fill="#F5C518" radius={[4, 4, 0, 0]} />
                         </BarChart>
@@ -155,7 +155,7 @@ export default function Reports() {
 
             {activeReport === 'services' && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 16 }}>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 20 }}>Service Performance Report</div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                             {servicePopularity.map((s, i) => (
@@ -171,7 +171,7 @@ export default function Reports() {
                             ))}
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="card shadow-sm" >
                         <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 16 }}>Booking Distribution</div>
                         <ResponsiveContainer width="100%" height={200}>
                             <PieChart>
@@ -187,7 +187,7 @@ export default function Reports() {
             )}
 
             {activeReport === 'workers' && (
-                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+                <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                     <div style={{ padding: '18px 20px 12px', fontWeight: 700, fontSize: 16, borderBottom: '1px solid var(--border)' }}>Worker Performance Report</div>
                     <table className="data-table">
                         <thead>
@@ -222,12 +222,12 @@ export default function Reports() {
             )}
 
             {activeReport === 'peak' && (
-                <div className="card">
+                <div className="card shadow-sm" >
                     <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Peak Booking Hours</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 20 }}>Average orders per hour across all days</div>
+                    <div style={{ fontSize: 12, color: '#64748B', marginBottom: 20 }}>Average orders per hour across all days</div>
                     <ResponsiveContainer width="100%" height={300}>
                         <BarChart data={peakHoursData} margin={{ top: 0, right: 0, bottom: 0, left: -20 }}>
-                            <CartesianGrid stroke="rgba(255,255,255,0.04)" vertical={false} />
+                            <CartesianGrid stroke="rgba(15, 23, 42,0.04)" vertical={false} />
                             <XAxis dataKey="hour" tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} axisLine={false} tickLine={false} />
                             <YAxis tick={{ fill: 'var(--text-secondary)', fontSize: 11 }} axisLine={false} tickLine={false} />
                             <Tooltip content={<CustomTooltip />} />

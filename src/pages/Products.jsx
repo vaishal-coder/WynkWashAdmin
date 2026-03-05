@@ -26,7 +26,7 @@ function ProductModal({ product, onClose }) {
                         { label: 'Low Stock Alert', key: 'alert', placeholder: '5', type: 'number' },
                     ].map(f => (
                         <div key={f.key} style={f.full ? { gridColumn: '1 / -1' } : {}}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
                             {f.type === 'select'
                                 ? <select className="select" value={form[f.key]} onChange={e => setForm({ ...form, [f.key]: e.target.value })}>
                                     {f.options.map(o => <option key={o}>{o}</option>)}
@@ -38,12 +38,12 @@ function ProductModal({ product, onClose }) {
                     ))}
 
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>USED IN SERVICES</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>USED IN SERVICES</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                             {services.map(s => (
                                 <label key={s.id} style={{
                                     display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer', fontSize: 12,
-                                    background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '6px 10px', border: '1px solid var(--border)'
+                                    background: 'rgba(15, 23, 42,0.04)', borderRadius: 8, padding: '6px 10px', border: '1px solid var(--border)'
                                 }}>
                                     <input type="checkbox" defaultChecked={product?.usedIn?.includes(s.id)} />
                                     {s.name}
@@ -80,7 +80,7 @@ export default function Products() {
                 ].map((s, i) => (
                     <div key={i} className="stat-card">
                         <div style={{ fontSize: 24, fontWeight: 800, color: s.color }}>{s.value}</div>
-                        <div style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{s.label}</div>
+                        <div style={{ fontSize: 12, color: '#64748B' }}>{s.label}</div>
                     </div>
                 ))}
             </div>
@@ -98,7 +98,7 @@ export default function Products() {
                 </button>
             </div>
 
-            <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
                 <div style={{ overflowX: 'auto' }}>
                     <table className="data-table">
                         <thead>
@@ -121,7 +121,7 @@ export default function Products() {
                                     <tr key={p.id}>
                                         <td>
                                             <div style={{ fontWeight: 600 }}>{p.name}</div>
-                                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{p.id}</div>
+                                            <div style={{ fontSize: 11, color: '#64748B', fontFamily: 'monospace' }}>{p.id}</div>
                                         </td>
                                         <td>
                                             <span style={{
@@ -142,11 +142,11 @@ export default function Products() {
                                                 </div>
                                             </div>
                                         </td>
-                                        <td style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{p.unit}</td>
+                                        <td style={{ fontSize: 12, color: '#64748B' }}>{p.unit}</td>
                                         <td style={{ fontWeight: 600 }}>₹{p.price.toLocaleString()}</td>
                                         <td style={{ fontWeight: 600, color: '#F5C518' }}>₹{(p.stock * p.price).toLocaleString()}</td>
                                         <td style={{ fontSize: 12 }}>
-                                            <span style={{ color: 'var(--text-secondary)' }}>≤ {p.alert}</span>
+                                            <span style={{ color: '#64748B' }}>≤ {p.alert}</span>
                                         </td>
                                         <td>
                                             <span className={`badge ${low ? 'badge-cancelled' : 'badge-completed'}`}>

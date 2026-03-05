@@ -17,13 +17,13 @@ function CouponModal({ coupon, onClose }) {
                 </div>
                 <div className="modal-body" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>COUPON CODE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>COUPON CODE</div>
                         <input className="input" value={form.code} placeholder="e.g. WELCOME50"
                             onChange={e => setForm({ ...form, code: e.target.value.toUpperCase() })}
                             style={{ fontFamily: 'monospace', fontSize: 16, fontWeight: 700, letterSpacing: '0.1em' }} />
                     </div>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>DISCOUNT TYPE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>DISCOUNT TYPE</div>
                         <div style={{ display: 'flex', gap: 8 }}>
                             <button className={`btn btn-sm ${form.type === 'flat' ? 'btn-primary' : 'btn-ghost'}`}
                                 onClick={() => setForm({ ...form, type: 'flat' })}>₹ Flat</button>
@@ -32,24 +32,24 @@ function CouponModal({ coupon, onClose }) {
                         </div>
                     </div>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>
                             VALUE ({form.type === 'flat' ? '₹' : '%'})
                         </div>
                         <input className="input" type="number" value={form.value} placeholder="e.g. 50"
                             onChange={e => setForm({ ...form, value: e.target.value })} />
                     </div>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>MAX DISCOUNT (₹)</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>MAX DISCOUNT (₹)</div>
                         <input className="input" type="number" value={form.maxDiscount} placeholder="e.g. 300"
                             onChange={e => setForm({ ...form, maxDiscount: e.target.value })} />
                     </div>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>USAGE LIMIT</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>USAGE LIMIT</div>
                         <input className="input" type="number" value={form.usageLimit} placeholder="e.g. 500"
                             onChange={e => setForm({ ...form, usageLimit: e.target.value })} />
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>EXPIRY DATE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>EXPIRY DATE</div>
                         <input className="input" type="date" value={form.expiry}
                             onChange={e => setForm({ ...form, expiry: e.target.value })}
                             style={{ colorScheme: 'dark' }} />
@@ -76,24 +76,14 @@ function CouponCard({ c, onEdit, onToggle }) {
 
     return (
         <div
-            style={{
-                position: 'relative', overflow: 'hidden',
-                background: 'rgba(255,255,255,0.035)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 20,
-                padding: '24px',
-                display: 'flex', flexDirection: 'column', gap: 18,
-                backdropFilter: 'blur(8px)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                opacity: c.active ? 1 : 0.6,
-            }}
+            className="card"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.3)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
         >
             {/* Top accent line */}
             <div style={{
                 position: 'absolute', top: 0, left: 24, right: 24, height: 2,
-                background: `linear-gradient(90deg,transparent,${c.active ? col : 'rgba(255,255,255,0.2)'},transparent)`, borderRadius: '0 0 4px 4px'
+                background: `linear-gradient(90deg,transparent,${c.active ? col : 'rgba(15, 23, 42,0.2)'},transparent)`, borderRadius: '0 0 4px 4px'
             }} />
 
             {/* Header */}
@@ -102,7 +92,7 @@ function CouponCard({ c, onEdit, onToggle }) {
                     <div style={{ fontFamily: 'monospace', fontSize: 22, fontWeight: 900, color: c.active ? col : 'var(--text-secondary)', letterSpacing: '0.08em' }}>
                         {c.code}
                     </div>
-                    <div style={{ fontSize: 12, color: 'rgba(148,163,184,0.8)', marginTop: 6, fontWeight: 600 }}>
+                    <div style={{ fontSize: 12, color: 'rgba(100,116,139,0.8)', marginTop: 6, fontWeight: 600 }}>
                         {c.type === 'flat' ? `₹${c.value} FLAT OFF` : `${c.value}% PERCENT OFF`}
                         {c.maxDiscount ? ` · UP TO ₹${c.maxDiscount}` : ''}
                     </div>
@@ -120,21 +110,21 @@ function CouponCard({ c, onEdit, onToggle }) {
 
             {/* Details grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>EXPIRES</div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F4FF', marginTop: 4 }}>{c.expiry}</div>
+                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>EXPIRES</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A', marginTop: 4 }}>{c.expiry}</div>
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                    <div style={{ fontSize: 10, color: 'rgba(148,163,184,0.6)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>USAGE LIMIT</div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#F0F4FF', marginTop: 4 }}>{c.usageLimit}</div>
+                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 12, padding: '10px 12px', border: '1px solid rgba(0,0,0,0.05)' }}>
+                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>USAGE LIMIT</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A', marginTop: 4 }}>{c.usageLimit}</div>
                 </div>
             </div>
 
             {/* Usage Progress */}
             <div style={{ marginTop: 4 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, marginBottom: 8 }}>
-                    <span style={{ color: 'rgba(148,163,184,0.7)', fontWeight: 600 }}>TOTAL REDEMPTIONS</span>
-                    <span style={{ fontWeight: 800, color: '#F0F4FF' }}>{c.usedCount} / {c.usageLimit} ({usedPct}%)</span>
+                    <span style={{ color: 'rgba(100,116,139,0.7)', fontWeight: 600 }}>TOTAL REDEMPTIONS</span>
+                    <span style={{ fontWeight: 800, color: '#0F172A' }}>{c.usedCount} / {c.usageLimit} ({usedPct}%)</span>
                 </div>
                 <div className="progress-bar" style={{ height: 6 }}>
                     <div className="progress-fill" style={{ width: `${usedPct}%`, background: usedPct > 90 ? '#F87171' : col }} />
@@ -142,12 +132,12 @@ function CouponCard({ c, onEdit, onToggle }) {
             </div>
 
             {/* Actions */}
-            <div style={{ display: 'flex', gap: 8, borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 20 }}>
+            <div style={{ display: 'flex', gap: 8, borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: 20 }}>
                 <button
                     onClick={() => onEdit(c)}
                     style={{
-                        flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                        color: '#F0F4FF', borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
+                        flex: 1, background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)',
+                        color: '#0F172A', borderRadius: 10, padding: '10px 0', fontSize: 12, fontWeight: 600,
                         cursor: 'pointer', transition: 'all 0.15s'
                     }}>
                     Edit
@@ -186,9 +176,9 @@ export default function Coupons() {
                         { label: 'Active', val: data.filter(c => c.active).length, col: '#10B981' },
                         { label: 'Total Usage', val: data.reduce((a, c) => a + c.usedCount, 0), col: '#F5C518' },
                     ].map((s, i) => (
-                        <div key={i} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '14px 24px', textAlign: 'center', minWidth: 130 }}>
+                        <div key={i} style={{ background: 'rgba(15, 23, 42,0.04)', border: '1px solid rgba(0,0,0,0.08)', borderRadius: 16, padding: '14px 24px', textAlign: 'center', minWidth: 130 }}>
                             <div style={{ fontSize: 24, fontWeight: 800, color: s.col, letterSpacing: '-0.02em' }}>{s.val}</div>
-                            <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.7)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: 4 }}>{s.label}</div>
+                            <div style={{ fontSize: 11, color: 'rgba(100,116,139,0.7)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', marginTop: 4 }}>{s.label}</div>
                         </div>
                     ))}
                 </div>

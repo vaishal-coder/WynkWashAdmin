@@ -36,13 +36,13 @@ function WorkerModal({ worker, onClose, isNew }) {
                         { label: 'Zone', key: 'zone', placeholder: 'Koramangala' },
                     ].map(f => (
                         <div key={f.key}>
-                            <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
+                            <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>{f.label.toUpperCase()}</div>
                             <input className="input" value={form[f.key]} placeholder={f.placeholder}
                                 onChange={e => setForm({ ...form, [f.key]: e.target.value })} />
                         </div>
                     ))}
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>STATUS</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>STATUS</div>
                         <div style={{ display: 'flex', gap: 8 }}>
                             {['available', 'busy', 'leave'].map(s => (
                                 <button key={s} className={`btn btn-sm ${form.status === s ? 'btn-primary' : 'btn-ghost'}`}
@@ -53,7 +53,7 @@ function WorkerModal({ worker, onClose, isNew }) {
                         </div>
                     </div>
                     <div style={{ gridColumn: '1 / -1' }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>SKILLS</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>SKILLS</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
                             {(form.skills || []).map((s, i) => (
                                 <span key={i} className="badge badge-yellow" style={{ cursor: 'pointer', fontSize: 11 }}
@@ -92,13 +92,13 @@ function AssignModal({ worker, onClose }) {
                 </div>
                 <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>REASSIGN ZONE</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 6 }}>REASSIGN ZONE</div>
                         <select className="select" value={zone} onChange={e => setZone(e.target.value)}>
                             {zones.map(z => <option key={z}>{z}</option>)}
                         </select>
                     </div>
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>AVAILABLE BOOKINGS (UNASSIGNED)</div>
+                        <div style={{ fontSize: 11, color: '#64748B', marginBottom: 8 }}>AVAILABLE BOOKINGS (UNASSIGNED)</div>
                         {['BK005 — Honda Activa · JP Nagar · 12:00 PM', 'BK009 — Maruti Swift · Hebbal · 2:00 PM'].map((b, i) => (
                             <label key={i} style={{
                                 display: 'flex', alignItems: 'center', gap: 10, padding: '10px 0',
@@ -127,16 +127,7 @@ function WorkerCard({ w, onEdit, onAssign, onSuspend }) {
 
     return (
         <div
-            style={{
-                position: 'relative', overflow: 'hidden',
-                background: 'rgba(255,255,255,0.035)',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 20,
-                padding: '22px',
-                display: 'flex', flexDirection: 'column', gap: 18,
-                backdropFilter: 'blur(8px)',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-            }}
+            className="card"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 16px 40px rgba(0,0,0,0.3)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
         >
@@ -150,16 +141,16 @@ function WorkerCard({ w, onEdit, onAssign, onSuspend }) {
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
                 <div style={{
                     width: 52, height: 52, borderRadius: 15, flexShrink: 0,
-                    background: 'rgba(255,255,255,0.06)',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: 'rgba(0,0,0,0.06)',
+                    border: '1px solid rgba(0,0,0,0.1)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: 18, fontWeight: 800, color: col, letterSpacing: '-0.02em',
                 }}>{initials}</div>
 
                 <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontWeight: 800, fontSize: 16, color: '#F0F4FF', letterSpacing: '-0.01em', lineHeight: 1.2 }}>{w.name}</div>
-                    <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.75)', marginTop: 4, fontWeight: 500 }}>{w.id} · {w.phone}</div>
-                    <div style={{ fontSize: 11, color: 'rgba(148,163,184,0.6)', marginTop: 3, display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <div style={{ fontWeight: 800, fontSize: 16, color: '#0F172A', letterSpacing: '-0.01em', lineHeight: 1.2 }}>{w.name}</div>
+                    <div style={{ fontSize: 11, color: '#475569', marginTop: 4, fontWeight: 500 }}>{w.id} · {w.phone}</div>
+                    <div style={{ fontSize: 11, color: '#64748B', marginTop: 3, display: 'flex', alignItems: 'center', gap: 4 }}>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" />
                         </svg>
@@ -186,12 +177,12 @@ function WorkerCard({ w, onEdit, onAssign, onSuspend }) {
                     { val: `₹${(w.totalEarnings / 1000).toFixed(0)}K`, label: 'Earned', color: '#3B82F6' },
                 ].map((s, i) => (
                     <div key={i} style={{
-                        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)',
+                        background: 'rgba(15, 23, 42,0.04)', border: '1px solid rgba(0,0,0,0.06)',
                         borderRadius: 12, padding: '12px 8px', textAlign: 'center'
                     }}>
                         <div style={{ fontSize: 18, fontWeight: 800, color: s.color, letterSpacing: '-0.02em' }}>{s.val}</div>
                         <div style={{
-                            fontSize: 10, color: 'rgba(148,163,184,0.7)', fontWeight: 600, textTransform: 'uppercase',
+                            fontSize: 10, color: 'rgba(100,116,139,0.7)', fontWeight: 600, textTransform: 'uppercase',
                             letterSpacing: '0.06em', marginTop: 4
                         }}>{s.label}</div>
                     </div>
@@ -214,17 +205,17 @@ function WorkerCard({ w, onEdit, onAssign, onSuspend }) {
             {/* Actions */}
             <div style={{
                 display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8,
-                borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 16
+                borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: 16
             }}>
                 <button
                     onClick={() => onEdit(w)}
                     style={{
-                        background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-                        color: '#F0F4FF', borderRadius: 10, padding: '9px 0', fontSize: 12, fontWeight: 600,
+                        background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.1)',
+                        color: '#0F172A', borderRadius: 10, padding: '9px 0', fontSize: 12, fontWeight: 600,
                         cursor: 'pointer', transition: 'all 0.15s'
                     }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.06)'}>
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,0,0,0.1)'}
+                    onMouseLeave={e => e.currentTarget.style.background = 'rgba(0,0,0,0.06)'}>
                     Edit
                 </button>
                 <button
@@ -264,8 +255,8 @@ function SuspendConfirm({ worker, onClose, onConfirm }) {
                     <button className="btn btn-ghost btn-sm" onClick={onClose}>✕</button>
                 </div>
                 <div className="modal-body">
-                    <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--text-secondary)' }}>
-                        Are you sure you want to suspend <strong style={{ color: '#F0F4FF' }}>{worker.name}</strong>?
+                    <p style={{ fontSize: 14, lineHeight: 1.7, color: '#64748B' }}>
+                        Are you sure you want to suspend <strong style={{ color: '#0F172A' }}>{worker.name}</strong>?
                         They will not receive new bookings until reinstated.
                     </p>
                 </div>
@@ -281,7 +272,6 @@ function SuspendConfirm({ worker, onClose, onConfirm }) {
 /* ── Page ───────────────────────────────────────────── */
 export default function Workers() {
     const [data, setData] = useState(workers);
-    const [view, setView] = useState('grid');
     const [filterStatus, setFilter] = useState('all');
     const [search, setSearch] = useState('');
     const [editModal, setEditModal] = useState(null);
@@ -313,90 +303,66 @@ export default function Workers() {
                 <div style={{ flex: 1 }} />
                 <input className="input" style={{ width: 200 }} placeholder="Search worker…"
                     value={search} onChange={e => setSearch(e.target.value)} />
-                <button className={`btn btn-sm ${view === 'grid' ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setView('grid')}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
-                    Grid
-                </button>
-                <button className={`btn btn-sm ${view === 'table' ? 'btn-primary' : 'btn-ghost'}`} onClick={() => setView('table')}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6" /><line x1="8" y1="12" x2="21" y2="12" /><line x1="8" y1="18" x2="21" y2="18" /><line x1="3" y1="6" x2="3.01" y2="6" /><line x1="3" y1="12" x2="3.01" y2="12" /><line x1="3" y1="18" x2="3.01" y2="18" /></svg>
-                    Table
-                </button>
                 <button className="btn btn-primary btn-sm" onClick={() => { setIsNew(true); setEditModal({}); }}>
                     + Add Worker
                 </button>
             </div>
 
-            {view === 'grid' ? (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 16 }}>
-                    {filtered.map(w => (
-                        <WorkerCard key={w.id} w={w}
-                            onEdit={w => { setIsNew(false); setEditModal(w); }}
-                            onAssign={w => setAssign(w)}
-                            onSuspend={w => setSuspend(w)} />
-                    ))}
-                    {filtered.length === 0 && (
-                        <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: 60, color: 'var(--text-secondary)' }}>
-                            No workers found
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
-                    <div style={{ overflowX: 'auto' }}>
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Worker</th><th>Contact</th><th>Zone</th><th>Status</th>
-                                    <th>Orders</th><th>Rating</th><th>Total Earnings</th><th>Pending</th><th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filtered.map(w => (
-                                    <tr key={w.id}>
-                                        <td>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                                                <div style={{
-                                                    width: 34, height: 34, borderRadius: 10, background: 'rgba(255,255,255,0.06)',
-                                                    border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                                    fontSize: 12, fontWeight: 800, color: accentOf(w.id), flexShrink: 0
-                                                }}>
-                                                    {w.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                                                </div>
-                                                <div>
-                                                    <div style={{ fontWeight: 600 }}>{w.name}</div>
-                                                    <div style={{ fontSize: 11, color: 'var(--text-secondary)', fontFamily: 'monospace' }}>{w.id}</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><div style={{ fontSize: 12 }}>{w.phone}</div><div style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{w.email}</div></td>
-                                        <td style={{ fontSize: 12 }}>{w.zone}</td>
-                                        <td>
-                                            <span style={{
-                                                fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 20,
-                                                background: `${STATUS_META[w.status].dot}14`, color: STATUS_META[w.status].dot,
-                                                border: `1px solid ${STATUS_META[w.status].dot}30`
+            <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
+                <div style={{ overflowX: 'auto' }}>
+                    <table className="data-table">
+                        <thead>
+                            <tr>
+                                <th>Worker</th><th>Contact</th><th>Zone</th><th>Status</th>
+                                <th>Orders</th><th>Rating</th><th>Total Earnings</th><th>Pending</th><th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filtered.map(w => (
+                                <tr key={w.id}>
+                                    <td>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                            <div style={{
+                                                width: 34, height: 34, borderRadius: 10, background: 'rgba(0,0,0,0.06)',
+                                                border: '1px solid rgba(0,0,0,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                                fontSize: 12, fontWeight: 800, color: accentOf(w.id), flexShrink: 0
                                             }}>
-                                                {STATUS_META[w.status].label}
-                                            </span>
-                                        </td>
-                                        <td style={{ fontWeight: 600 }}>{w.completed}</td>
-                                        <td style={{ color: '#F5C518', fontWeight: 600 }}>{w.rating}★</td>
-                                        <td style={{ color: '#10B981', fontWeight: 600 }}>₹{w.totalEarnings.toLocaleString()}</td>
-                                        <td style={{ color: w.pendingAmount > 0 ? '#F59E0B' : 'var(--text-secondary)' }}>₹{w.pendingAmount.toLocaleString()}</td>
-                                        <td>
-                                            <div style={{ display: 'flex', gap: 6 }}>
-                                                <button className="btn btn-ghost btn-sm" onClick={() => { setIsNew(false); setEditModal(w); }}>Edit</button>
-                                                <button className="btn btn-success btn-sm" onClick={() => setAssign(w)}>Assign</button>
-                                                <button className="btn btn-danger btn-sm" onClick={() => setSuspend(w)}>Suspend</button>
+                                                {w.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                                             </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                                            <div>
+                                                <div style={{ fontWeight: 600 }}>{w.name}</div>
+                                                <div style={{ fontSize: 11, color: '#64748B', fontFamily: 'monospace' }}>{w.id}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><div style={{ fontSize: 12 }}>{w.phone}</div><div style={{ fontSize: 11, color: '#64748B' }}>{w.email}</div></td>
+                                    <td style={{ fontSize: 12 }}>{w.zone}</td>
+                                    <td>
+                                        <span style={{
+                                            fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 20,
+                                            background: `${STATUS_META[w.status].dot}14`, color: STATUS_META[w.status].dot,
+                                            border: `1px solid ${STATUS_META[w.status].dot}30`
+                                        }}>
+                                            {STATUS_META[w.status].label}
+                                        </span>
+                                    </td>
+                                    <td style={{ fontWeight: 600 }}>{w.completed}</td>
+                                    <td style={{ color: '#F5C518', fontWeight: 600 }}>{w.rating}★</td>
+                                    <td style={{ color: '#10B981', fontWeight: 600 }}>₹{w.totalEarnings.toLocaleString()}</td>
+                                    <td style={{ color: w.pendingAmount > 0 ? '#F59E0B' : 'var(--text-secondary)' }}>₹{w.pendingAmount.toLocaleString()}</td>
+                                    <td>
+                                        <div style={{ display: 'flex', gap: 6 }}>
+                                            <button className="btn btn-ghost btn-sm" onClick={() => { setIsNew(false); setEditModal(w); }}>Edit</button>
+                                            <button className="btn btn-success btn-sm" onClick={() => setAssign(w)}>Assign</button>
+                                            <button className="btn btn-danger btn-sm" onClick={() => setSuspend(w)}>Suspend</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-            )}
+            </div>
 
             {editModal !== null && (
                 <WorkerModal worker={editModal} onClose={() => { setEditModal(null); setIsNew(false); }} isNew={isNew} />
