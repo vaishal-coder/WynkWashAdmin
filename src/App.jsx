@@ -14,6 +14,9 @@ import Notifications from './pages/Notifications';
 import Reviews from './pages/Reviews';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
+import WorkerApplications from './pages/WorkerApplications';
+import BookingHistory from './pages/BookingHistory';
+import OrderKitStatus from './pages/OrderKitStatus';
 
 const pages = {
   dashboard: Dashboard,
@@ -29,6 +32,9 @@ const pages = {
   reviews: Reviews,
   reports: Reports,
   settings: Settings,
+  'worker-applications': WorkerApplications,
+  'booking-history': BookingHistory,
+  'order-kit-status': OrderKitStatus,
 };
 
 export default function App() {
@@ -54,7 +60,7 @@ export default function App() {
         setMobileOpen={setMobileOpen}
       />
       <main className={`main-content ${collapsed ? 'sidebar-collapsed' : ''}`}>
-        <PageComponent key={activePage} />
+        <PageComponent key={activePage} onNavigate={setActivePage} />
       </main>
     </>
   );

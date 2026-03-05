@@ -54,36 +54,28 @@ function BookingModal({ booking, onClose, onUpdate }) {
                         </div>
                     </div>
 
-                    <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16 }}>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>ASSIGN / REASSIGN WORKER</div>
-                        <select className="select" value={worker} onChange={e => setWorker(e.target.value)}>
-                            <option value="">— Select Worker —</option>
-                            {workers.filter(w => w.status !== 'leave').map(w => (
-                                <option key={w.id} value={w.name}>{w.name} ({w.status}) — {w.zone}</option>
-                            ))}
-                        </select>
-                    </div>
+
 
                     <div>
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>UPDATE STATUS</div>
+                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 8 }}>CANCEL BOOKING</div>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                            {Object.entries(statusLabels).map(([k, v]) => (
-                                <button
-                                    key={k}
-                                    className={`btn btn-sm ${status === k ? 'btn-primary' : 'btn-ghost'}`}
-                                    onClick={() => setStatus(k)}
-                                >
-                                    {v}
-                                </button>
-                            ))}
+                            <button
+                                className={`btn btn-sm ${status === 'cancelled' ? 'btn-danger' : 'btn-ghost'}`}
+                                onClick={() => setStatus('cancelled')}
+                                disabled={booking.status === 'cancelled' || booking.status === 'completed'}
+                            >
+                                Mark as Cancelled
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div className="modal-footer">
-                    <button className="btn btn-danger" onClick={onClose}>Cancel Booking</button>
-                    <button className="btn btn-primary" onClick={() => { onUpdate({ ...booking, status, worker }); onClose(); }}>
-                        Save Changes
-                    </button>
+                    <button className="btn btn-ghost" onClick={onClose}>Close</button>
+                    {status === 'cancelled' && booking.status !== 'cancelled' && (
+                        <button className="btn btn-danger" onClick={() => { onUpdate({ ...booking, status: 'cancelled' }); onClose(); }}>
+                            Confirm Cancellation
+                        </button>
+                    )}
                 </div>
             </div>
         </div>
@@ -191,12 +183,19 @@ export default function Bookings() {
                                     <td><span className={`badge ${statusColor[b.status]}`}>{statusLabels[b.status]}</span></td>
                                     <td>
                                         <div style={{ display: 'flex', gap: 6 }}>
-                                            <button className="btn btn-ghost btn-sm" style={{ padding: '5px 8px' }} onClick={() => setSelected(b)} title="View / Edit">
+                                            <button className="btn btn-ghost btn-sm" style={{ padding: '5px 8px' }} onClick={() => setSelected(b)} title="View Detail">
                                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" /></svg>
                                             </button>
-                                            <button className="btn btn-danger btn-sm" style={{ padding: '5px 8px' }} title="Cancel">
-                                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
-                                            </button>
+                                            {b.status !== 'cancelled' && b.status !== 'completed' && (
+                                                <button
+                                                    className="btn btn-danger btn-sm"
+                                                    style={{ padding: '5px 8px' }}
+                                                    title="Cancel Booking"
+                                                    onClick={() => handleUpdate({ ...b, status: 'cancelled' })}
+                                                >
+                                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                                                </button>
+                                            )}
                                         </div>
                                     </td>
                                 </tr>

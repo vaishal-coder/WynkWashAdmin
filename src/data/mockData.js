@@ -613,3 +613,18 @@ export const workerPayouts = [
     { worker: 'Praveen Kumar', id: 'WK006', earned: 38600, commission: 20, payout: 30880, status: 'pending' },
     { worker: 'Ganesh Reddy', id: 'WK004', earned: 28400, commission: 20, payout: 22720, status: 'paid' },
 ];
+
+export const workerApplications = [
+    { id: 'APP001', name: 'Sanjay Dutt', phone: '9876543210', email: 'sanjay@example.com', experience: '3 years', zone: 'North Bangalore', skills: ['Premium Wash', 'Interior Cleaning'], status: 'pending', appliedDate: '2026-03-01' },
+    { id: 'APP002', name: 'Arjun Kapoor', phone: '9823456789', email: 'arjun@example.com', experience: '5 years', zone: 'South Bangalore', skills: ['Detailing', 'Polishing'], status: 'pending', appliedDate: '2026-03-02' },
+    { id: 'APP003', name: 'Vikram Singh', phone: '9911223344', email: 'vikram@example.com', experience: '2 years', zone: 'East Bangalore', skills: ['Basic Wash'], status: 'rejected', appliedDate: '2026-02-28' },
+    { id: 'APP004', name: 'Deepak Raj', phone: '8877665544', email: 'deepak@example.com', experience: '4 years', zone: 'West Bangalore', skills: ['Car Spa', 'Engine Bay'], status: 'pending', appliedDate: '2026-03-03' },
+];
+
+export const orderKitStatus = [
+    { orderId: 'BK001', customer: 'Rahul Sharma', worker: 'Suresh Kumar', service: 'Premium Doorstep Wash', kitProvided: true, date: '2026-03-04' },
+    { orderId: 'BK002', customer: 'Priya Mehta', worker: 'Ramesh Singh', service: 'Interior Deep Cleaning', kitProvided: false, date: '2026-03-04' },
+    { orderId: 'BK004', customer: 'Sneha Patel', worker: 'Anand Rao', service: 'Complete Car Spa', kitProvided: true, date: '2026-03-04' },
+    { orderId: 'BK007', customer: 'Rohit Gupta', worker: 'Ramesh Singh', service: 'Premium Doorstep Wash', kitProvided: false, date: '2026-03-05' },
+];
+

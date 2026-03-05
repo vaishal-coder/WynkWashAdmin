@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { customers, bookings } from '../data/mockData';
 
-export default function Customers() {
+export default function Customers({ onNavigate }) {
     const [search, setSearch] = useState('');
     const [selected, setSelected] = useState(null);
     const [showNote, setShowNote] = useState(false);
@@ -171,7 +171,12 @@ export default function Customers() {
 
                     {/* Booking History */}
                     <div className="card">
-                        <div style={{ fontWeight: 600, marginBottom: 12 }}>Booking History</div>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                            <div style={{ fontWeight: 600 }}>Recent Bookings</div>
+                            <button className="btn btn-ghost btn-sm" onClick={() => onNavigate && onNavigate('booking-history')}>
+                                View All History
+                            </button>
+                        </div>
                         {customerBookings.length > 0
                             ? customerBookings.map(b => (
                                 <div key={b.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 8, padding: '10px 0', borderBottom: '1px solid var(--border)' }}>

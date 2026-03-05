@@ -253,34 +253,8 @@ export default function Dashboard() {
             </div>
 
             {/* Worker Activity + Customer Growth */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                <div className="card">
-                    <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Worker Activity Heatmap</div>
-                    <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 16 }}>Orders assigned by hour</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: 4 }}>
-                        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
-                            <div key={d} style={{ textAlign: 'center', fontSize: 10, color: 'var(--text-secondary)', marginBottom: 4 }}>{d}</div>
-                        ))}
-                        {Array.from({ length: 7 * 6 }, (_, i) => {
-                            const intensity = Math.random();
-                            const alpha = (0.1 + intensity * 0.9).toFixed(2);
-                            return (
-                                <div key={i} style={{
-                                    height: 20, borderRadius: 4,
-                                    background: `rgba(245,197,24,${alpha})`,
-                                    title: `${Math.floor(intensity * 12)} orders`,
-                                }} />
-                            );
-                        })}
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 12, justifyContent: 'flex-end' }}>
-                        <span style={{ fontSize: 10, color: 'var(--text-secondary)' }}>Low</span>
-                        {[0.1, 0.3, 0.5, 0.7, 0.9].map(a => (
-                            <div key={a} style={{ width: 14, height: 14, borderRadius: 3, background: `rgba(245,197,24,${a})` }} />
-                        ))}
-                        <span style={{ fontSize: 10, color: 'var(--text-secondary)' }}>High</span>
-                    </div>
-                </div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16 }}>
+
 
                 <div className="card">
                     <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 4 }}>Customer Growth</div>

@@ -97,6 +97,21 @@ const icons = {
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
         </svg>
     ),
+    history: (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 8l-4 4 4 4M16 12H8" /><circle cx="12" cy="12" r="10" />
+        </svg>
+    ),
+    applications: (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="8.5" cy="7" r="4" /><line x1="20" y1="8" x2="20" y2="14" /><line x1="23" y1="11" x2="17" y2="11" />
+        </svg>
+    ),
+    kit: (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" /><polyline points="3.27 6.96 12 12.01 20.73 6.96" /><line x1="12" y1="22.08" x2="12" y2="12" />
+        </svg>
+    ),
     trash: (
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
@@ -132,8 +147,11 @@ const icons = {
 const navItems = [
     { key: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
     { key: 'bookings', label: 'Bookings', icon: 'bookings', badge: 16 },
+    { key: 'worker-applications', label: 'Applications', icon: 'applications', badge: 3 },
+    { key: 'order-kit-status', label: 'Order Kits', icon: 'kit' },
     { key: 'workers', label: 'Workers', icon: 'workers' },
     { key: 'customers', label: 'Customers', icon: 'customers' },
+    { key: 'booking-history', label: 'History', icon: 'history' },
     { key: 'services', label: 'Services', icon: 'services' },
     { key: 'products', label: 'Products', icon: 'products' },
     { key: 'coupons', label: 'Coupons', icon: 'coupons' },
@@ -164,7 +182,7 @@ export default function Sidebar({ active, onNavigate, collapsed, setCollapsed, m
                 {/* Navigation */}
                 <nav style={{ flex: 1, padding: '12px 0' }}>
                     {!collapsed && <div className="nav-section-label">Main Menu</div>}
-                    {navItems.slice(0, 8).map(item => (
+                    {navItems.slice(0, 11).map(item => (
                         <div
                             key={item.key}
                             className={`nav-item ${active === item.key ? 'active' : ''}`}
@@ -178,7 +196,7 @@ export default function Sidebar({ active, onNavigate, collapsed, setCollapsed, m
                     ))}
 
                     {!collapsed && <div className="nav-section-label">System</div>}
-                    {navItems.slice(8).map(item => (
+                    {navItems.slice(11).map(item => (
                         <div
                             key={item.key}
                             className={`nav-item ${active === item.key ? 'active' : ''}`}
