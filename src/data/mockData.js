@@ -646,6 +646,7 @@ export const workerVerifications = [
             account: '123456789012',
             ifsc: 'SBIN0001234',
             bankName: 'State Bank of India',
+            branchName: 'Hebbal Branch',
             status: 'pending'
         },
         workPreferences: {
@@ -671,11 +672,64 @@ export const workerVerifications = [
             account: '987654321098',
             ifsc: 'HDFC0004567',
             bankName: 'HDFC Bank',
+            branchName: 'Jayanagar Branch',
             status: 'pending'
         },
         workPreferences: {
             areas: 'South Bangalore (Jayanagar, JP Nagar)',
             services: 'Detailing, Polishing',
+            availability: 'Part-time'
+        }
+    },
+    {
+        id: 'APP001',
+        workerName: 'Rakesh Tiwari',
+        phone: '9876543210',
+        email: 'rakesh@example.com',
+        appliedDate: '2026-03-04',
+        status: 'pending',
+        documents: {
+            aadhar: { front: 'https://via.placeholder.com/300x200?text=Aadhar+Front', back: 'https://via.placeholder.com/300x200?text=Aadhar+Back', status: 'pending' },
+            license: { front: 'https://via.placeholder.com/300x200?text=License+Front', back: 'https://via.placeholder.com/300x200?text=License+Back', status: 'pending' },
+            selfie: { url: 'https://via.placeholder.com/200?text=Selfie', status: 'pending' },
+        },
+        bankDetails: {
+            holder: 'Rakesh Tiwari',
+            account: '112233445566',
+            ifsc: 'SBIN0001234',
+            bankName: 'State Bank of India',
+            branchName: 'Yelahanka Branch',
+            status: 'pending'
+        },
+        workPreferences: {
+            areas: 'North Bangalore',
+            services: 'Basic Wash, Standard Wash',
+            availability: 'Full-time'
+        }
+    },
+    {
+        id: 'APP004',
+        workerName: 'Deepak Raj',
+        phone: '8877665544',
+        email: 'deepak@example.com',
+        appliedDate: '2026-03-03',
+        status: 'pending',
+        documents: {
+            aadhar: { front: 'https://via.placeholder.com/300x200?text=Aadhar+Front', back: 'https://via.placeholder.com/300x200?text=Aadhar+Back', status: 'pending' },
+            license: { front: 'https://via.placeholder.com/300x200?text=License+Front', back: 'https://via.placeholder.com/300x200?text=License+Back', status: 'pending' },
+            selfie: { url: 'https://via.placeholder.com/200?text=Selfie', status: 'pending' },
+        },
+        bankDetails: {
+            holder: 'Deepak Raj',
+            account: '998877665544',
+            ifsc: 'HDFC0004567',
+            bankName: 'HDFC Bank',
+            branchName: 'Malleswaram Branch',
+            status: 'pending'
+        },
+        workPreferences: {
+            areas: 'West Bangalore',
+            services: 'Car Spa, Engine Bay',
             availability: 'Part-time'
         }
     }

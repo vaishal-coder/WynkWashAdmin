@@ -19,8 +19,8 @@ function BookingModal({ booking, onClose, onUpdate }) {
             <div className="modal" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
                     <div>
-                        <div style={{ fontWeight: 700, fontSize: 17 }}>Booking Details</div>
-                        <div style={{ fontSize: 12, color: '#F5C518', fontFamily: 'monospace', marginTop: 2 }}>{booking.id}</div>
+                        <div style={{ fontWeight: 700, fontSize: 17, color: '#0F172A' }}>Booking Details</div>
+                        <div style={{ fontSize: 12, color: '#002366', fontFamily: 'monospace', marginTop: 2 }}>{booking.id}</div>
                     </div>
                     <button className="btn btn-ghost btn-sm" onClick={onClose} style={{ padding: '6px' }}>✕</button>
                 </div>
@@ -28,29 +28,29 @@ function BookingModal({ booking, onClose, onUpdate }) {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>CUSTOMER</div>
-                            <div style={{ fontWeight: 600 }}>{booking.customer}</div>
+                            <div style={{ fontWeight: 600, color: '#0F172A' }}>{booking.customer}</div>
                             <div style={{ fontSize: 12, color: '#64748B' }}>{booking.customerPhone}</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>VEHICLE</div>
-                            <div style={{ fontWeight: 600 }}>{booking.vehicle}</div>
+                            <div style={{ fontWeight: 600, color: '#0F172A' }}>{booking.vehicle}</div>
                             <div style={{ fontSize: 12, color: '#64748B' }}>{booking.vehicleNo}</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>SERVICE</div>
-                            <div style={{ fontWeight: 600 }}>{booking.service}</div>
+                            <div style={{ fontWeight: 600, color: '#0F172A' }}>{booking.service}</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>AMOUNT</div>
-                            <div style={{ fontWeight: 700, color: '#F5C518', fontSize: 18 }}>₹{booking.amount.toLocaleString()}</div>
+                            <div style={{ fontWeight: 700, color: '#002366', fontSize: 18 }}>₹{booking.amount.toLocaleString()}</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>DATE & TIME</div>
-                            <div style={{ fontWeight: 600 }}>{booking.date} · {booking.time}</div>
+                            <div style={{ fontWeight: 600, color: '#0F172A' }}>{booking.date} · {booking.time}</div>
                         </div>
                         <div>
                             <div style={{ fontSize: 11, color: '#64748B', marginBottom: 4 }}>LOCATION</div>
-                            <div style={{ fontWeight: 600 }}>{booking.location}</div>
+                            <div style={{ fontWeight: 600, color: '#0F172A' }}>{booking.location}</div>
                         </div>
                     </div>
                     <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16 }}>
@@ -58,10 +58,10 @@ function BookingModal({ booking, onClose, onUpdate }) {
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                             <button
                                 className={`btn btn-sm ${status === 'cancelled' ? 'btn-danger' : 'btn-ghost'}`}
-                                style={{ fontSize: 11, padding: '6px 10px', ...(status === 'cancelled' ? {} : { border: '1px solid var(--border)' }) }}
-                                onClick={() => setStatus(status === 'cancelled' ? booking.status : 'cancelled')}
+                                style={{ fontSize: 11, padding: '6px 12px', fontWeight: status === 'cancelled' ? 700 : 500, ...(status === 'cancelled' ? {} : { border: '1px solid var(--border)', background: '#FFFFFF' }) }}
+                                onClick={() => setStatus('cancelled')}
                             >
-                                {status === 'cancelled' ? 'Will Cancel' : 'Cancel Booking'}
+                                Cancel Booking
                             </button>
                         </div>
                     </div>
@@ -170,7 +170,7 @@ export default function Bookings() {
                         <tbody>
                             {filtered.map(b => (
                                 <tr key={b.id}>
-                                    <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#F5C518' }}>{b.id}</span></td>
+                                    <td><span style={{ fontFamily: 'monospace', fontSize: 12, color: '#002366', fontWeight: 700 }}>{b.id}</span></td>
                                     <td>
                                         <div style={{ fontWeight: 600 }}>{b.customer}</div>
                                         <div style={{ fontSize: 11, color: '#64748B' }}>{b.customerPhone}</div>
@@ -193,7 +193,7 @@ export default function Bookings() {
                                         <div style={{ fontWeight: 500, fontSize: 12 }}>{b.date}</div>
                                         <div style={{ fontSize: 11, color: '#64748B' }}>{b.time}</div>
                                     </td>
-                                    <td style={{ fontWeight: 700, color: '#F5C518' }}>₹{b.amount.toLocaleString()}</td>
+                                    <td style={{ fontWeight: 700, color: '#002366' }}>₹{b.amount.toLocaleString()}</td>
                                     <td><span className={`badge ${statusColor[b.status]}`}>{statusLabels[b.status]}</span></td>
                                     <td>
                                         <div style={{ display: 'flex', gap: 6 }}>

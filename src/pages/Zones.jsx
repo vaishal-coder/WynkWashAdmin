@@ -10,12 +10,12 @@ function ZoneModal({ zone, onClose }) {
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal" onClick={e => e.stopPropagation()}>
                 <div className="modal-header">
-                    <div style={{ fontWeight: 700, fontSize: 17 }}>{isNew ? 'Add Service Zone' : 'Edit Zone'}</div>
+                    <div style={{ fontWeight: 700, fontSize: 17 }}>{isNew ? 'Add Service Hub' : 'Edit Hub'}</div>
                     <button className="btn btn-ghost btn-sm" onClick={onClose}>✕</button>
                 </div>
                 <div className="modal-body" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
                     {[
-                        { label: 'Zone Name', key: 'name', placeholder: 'e.g. Koramangala' },
+                        { label: 'Hub Name', key: 'name', placeholder: 'e.g. Koramangala Hub' },
                         { label: 'City', key: 'city', placeholder: 'e.g. Bangalore' },
                         { label: 'Area (km²)', key: 'area', placeholder: 'e.g. 12 km²' },
                     ].map(f => (
@@ -97,9 +97,13 @@ function ZoneCard({ z, onEdit, onToggle }) {
 
             {/* Stats grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(0,0,0,0.05)' }}>
-                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>WORKERS</div>
-                    <div style={{ fontSize: 22, fontWeight: 800, color: '#3B82F6', marginTop: 4, letterSpacing: '-0.02em' }}>{z.workers}</div>
+                <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(0,0,0,0.05)', gridColumn: '1 / -1' }}>
+                    <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>ALLOCATED EMPLOYEES</div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                        {workers.filter(w => w.zone.toLowerCase().includes(z.name.toLowerCase() || 'missing')).map(w => (
+                            <span key={w.id} style={{ fontSize: 11, background: '#FFFFFF', padding: '4px 8px', borderRadius: 4, border: '1px solid var(--border)' }}>{w.name}</span>
+                        ))}
+                    </div>
                 </div>
                 <div style={{ background: 'rgba(15, 23, 42,0.04)', borderRadius: 14, padding: '14px 16px', border: '1px solid rgba(0,0,0,0.05)' }}>
                     <div style={{ fontSize: 10, color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>PRICING TIER</div>
@@ -147,7 +151,7 @@ export default function Zones() {
         <div className="animate-fade">
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
                 <button className="btn btn-primary" onClick={() => { setIsNew(true); setModal(null); }}>
-                    + Add Zone
+                    + Add Hub
                 </button>
             </div>
 
@@ -158,9 +162,9 @@ export default function Zones() {
             </div>
 
             {/* Worker zone assignment table */}
-            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden', background: 'rgba(15, 23, 42,0.025)' }}>
+            <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden', background: 'rgba(15, 23, 42,0.025)' }}>
                 <div style={{ padding: '20px 24px 14px', fontWeight: 800, fontSize: 17, borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <div>Worker Zone Assignments</div>
+                    <div>Worker Hub Assignments</div>
                     <button className="btn btn-ghost btn-sm" style={{ fontSize: 12 }}>Export Data</button>
                 </div>
                 <div style={{ overflowX: 'auto' }}>
@@ -169,7 +173,7 @@ export default function Zones() {
                             <tr>
                                 <th>Worker</th>
                                 <th>ID</th>
-                                <th>Assigned Zone</th>
+                                <th>Assigned Hub</th>
                                 <th>Status</th>
                                 <th>Active Orders</th>
                                 <th>Actions</th>

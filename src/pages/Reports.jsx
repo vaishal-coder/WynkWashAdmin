@@ -7,7 +7,7 @@ const fmt = n => '₹' + n.toLocaleString('en-IN');
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div style={{ background: 'var(--navy-light)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', fontSize: 12 }}>
+            <div style={{ background: '#1E293B', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 14px', fontSize: 12 }}>
                 <div style={{ color: '#64748B', marginBottom: 6 }}>{label}</div>
                 {payload.map((p, i) => (
                     <div key={i} style={{ color: p.color || '#F5C518', fontWeight: 600 }}>
@@ -111,7 +111,7 @@ export default function Reports() {
                         </ResponsiveContainer>
                     </div>
                     {/* Monthly table */}
-                    <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
+                    <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
                         <div style={{ padding: '16px 20px', fontWeight: 700, fontSize: 15, borderBottom: '1px solid var(--border)' }}>Monthly Breakdown</div>
                         <table className="data-table">
                             <thead>
@@ -171,15 +171,39 @@ export default function Reports() {
                             ))}
                         </div>
                     </div>
-                    <div className="card shadow-sm" >
+                    <div className="card shadow-sm">
                         <div style={{ fontWeight: 700, fontSize: 16, marginBottom: 16 }}>Booking Distribution</div>
-                        <ResponsiveContainer width="100%" height={200}>
-                            <PieChart>
-                                <Pie data={servicePopularity} dataKey="value" cx="50%" cy="50%" outerRadius={80} paddingAngle={3}>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <PieChart margin={{ top: 10, right: 10, bottom: 10, left: 10 }}>
+                                <Pie
+                                    data={servicePopularity}
+                                    dataKey="value"
+                                    cx="50%"
+                                    cy="45%"
+                                    outerRadius={90}
+                                    paddingAngle={3}
+                                    label={({ name, value }) => `${value}%`}
+                                    labelLine={false}
+                                >
                                     {servicePopularity.map((e, i) => <Cell key={i} fill={e.color} />)}
                                 </Pie>
-                                <Tooltip formatter={(v) => `${v}%`} contentStyle={{ background: 'var(--navy-light)', border: '1px solid var(--border)', fontSize: 11 }} />
-                                <Legend wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
+                                <Tooltip
+                                    formatter={(v, name) => [`${v}%`, name]}
+                                    contentStyle={{
+                                        background: '#1E293B',
+                                        border: 'none',
+                                        borderRadius: 8,
+                                        fontSize: 11,
+                                        color: '#FFFFFF',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                                    }}
+                                    itemStyle={{ color: '#FFFFFF' }}
+                                    labelStyle={{ color: 'rgba(255,255,255,0.7)' }}
+                                />
+                                <Legend
+                                    wrapperStyle={{ fontSize: 11, paddingTop: 8, color: '#1E293B' }}
+                                    formatter={(value) => <span style={{ color: '#1E293B', fontWeight: 500 }}>{value}</span>}
+                                />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
@@ -187,7 +211,7 @@ export default function Reports() {
             )}
 
             {activeReport === 'workers' && (
-                <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
+                <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
                     <div style={{ padding: '18px 20px 12px', fontWeight: 700, fontSize: 16, borderBottom: '1px solid var(--border)' }}>Worker Performance Report</div>
                     <table className="data-table">
                         <thead>

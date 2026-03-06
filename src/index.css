@@ -1,23 +1,40 @@
 @import "tailwindcss";
 
 :root {
+  /* Brand */
   --navy: #002366;
-  --navy-light: #002D80;
-  --navy-card: #003699;
-  --bg-main: #F0F2F5;
-  /* Slightly grayer for better card contrast */
+  --navy-light: #003399;
   --yellow: #F5C518;
-  --yellow-dark: #D1A30D;
-  --yellow-light: #FFF4C2;
-  --text-primary: #0F172A;
-  --text-secondary: #64748B;
-  --border: rgba(0, 0, 0, 0.1);
-  /* Stronger border for visibility */
+  --yellow-dark: #D9A800;
+
+  /* Backgrounds */
+  --bg-main: #F5F7FB;
+  /* Slate 50 */
   --card-bg: #FFFFFF;
+
+  /* Text */
+  --text-primary: #0F172A;
+  /* Slate 900 */
+  --text-secondary: #64748B;
+  /* Slate 500 */
+  --text-muted: #94A3B8;
+  /* Slate 400 */
+
+  /* Borders */
+  --border: #E2E8F0;
+  /* Slate 200 */
+  --border-light: #F1F5F9;
+  /* Slate 100 */
+
+  /* Status */
   --success: #10B981;
+  /* Emerald 500 */
   --warning: #F59E0B;
+  /* Amber 500 */
   --danger: #EF4444;
+  /* Red 500 */
   --info: #3B82F6;
+  /* Blue 500 */
 }
 
 * {
@@ -28,14 +45,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global Page Background Reset */
 html,
-body,
-#root {
-  height: 100%;
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: var(--bg-main);
+  background-color: #F5F7FB !important;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+}
+
+#root,
+.layout-wrapper,
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #F5F7FB !important;
 }
 
 ::-webkit-scrollbar {
@@ -139,7 +167,6 @@ body,
 
 .nav-item:hover {
   background: rgba(255, 255, 255, 0.05);
-  /* Slight light blue/white */
   color: #FFFFFF;
 }
 
@@ -268,7 +295,7 @@ body,
   padding: 16px 20px;
   font-size: 14px;
   color: var(--text-primary);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.04);
+  border-bottom: 1px solid var(--border-light);
   vertical-align: middle;
   font-weight: 500;
 }
@@ -278,7 +305,7 @@ body,
 }
 
 .data-table tr:hover td {
-  background: rgba(15, 23, 42, 0.02);
+  background: #F8FAFC;
 }
 
 /* Status badges */
@@ -320,9 +347,9 @@ body,
 }
 
 .badge-cancelled {
-  background: rgba(239, 68, 68, 0.1);
-  color: #DC2626;
-  border-color: rgba(239, 68, 68, 0.2);
+  background: #FEF2F2;
+  color: #EF4444;
+  border-color: #EF444430;
 }
 
 .badge-available {
@@ -359,16 +386,19 @@ body,
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 22px;
-  border-radius: 12px;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  /* Crisp corners for SaaS */
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: none;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  /* default transparent border except for specific classes */
   white-space: nowrap;
   justify-content: center;
+  user-select: none;
 }
 
 .btn-primary {
@@ -420,39 +450,45 @@ body,
 /* Inputs */
 .input {
   background: #FFFFFF;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 12px;
-  padding: 12px 16px;
+  border: 1px solid #CBD5E1;
+  /* Slate 300 */
+  border-radius: 8px;
+  /* Standard SaaS border radius */
+  padding: 10px 14px;
   font-size: 14px;
   color: var(--text-primary);
   outline: none;
   width: 100%;
   font-family: inherit;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  /* Slight elevation */
 }
 
 .input::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.6;
+  color: var(--text-muted);
 }
 
 .select {
   background: #FFFFFF;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  border-radius: 12px;
-  padding: 12px 16px;
+  border: 1px solid #CBD5E1;
+  /* Slate 300 */
+  border-radius: 8px;
+  /* Standard SaaS border radius */
+  padding: 10px 14px;
   font-size: 14px;
   color: var(--text-primary);
   outline: none;
   font-family: inherit;
   cursor: pointer;
   width: 100%;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .input:focus,
@@ -496,12 +532,16 @@ body,
 }
 
 /* Main content */
-.main-content {
+.main-content,
+.page-container {
   margin-left: 260px;
-  margin-top: 72px;
-  min-height: calc(100vh - 72px);
+  margin-top: 80px;
+  /* matched to topbar height */
+  min-height: calc(100vh - 80px);
   padding: 28px;
+  background-color: #F5F7FB !important;
   transition: margin-left 0.3s ease;
+  flex: 1;
 }
 
 .main-content.sidebar-collapsed {
@@ -537,13 +577,15 @@ body,
   flex-shrink: 0;
 }
 
-/* Modal */
+/* Replaced by refined Top/Bottom Layout section */
+
+/* Modal Overlay - Soft Glassmorphism */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 35, 102, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 200;
+  background: rgba(15, 47, 107, 0.35);
+  backdrop-filter: blur(4px);
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -553,26 +595,43 @@ body,
 
 .modal {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.15), 0 8px 16px -8px rgba(0, 0, 0, 0.1);
-  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
   width: 100%;
-  max-width: 580px;
+  max-width: 620px;
   max-height: 90vh;
   overflow-y: auto;
-  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .modal-header {
   padding: 24px 32px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-shrink: 0;
 }
 
 .modal-body {
   padding: 32px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 .modal-footer {
@@ -582,7 +641,9 @@ body,
   display: flex;
   gap: 16px;
   justify-content: flex-end;
+  flex-shrink: 0;
 }
+
 
 /* Tooltip style for active sidebar icon in collapsed mode */
 .sidebar.collapsed .nav-item-text {

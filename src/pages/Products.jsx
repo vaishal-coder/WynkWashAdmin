@@ -98,7 +98,7 @@ export default function Products() {
                 </button>
             </div>
 
-            <div className="card shadow-sm"  style={{ padding: 0, overflow: 'hidden' }}>
+            <div className="card shadow-sm" style={{ padding: 0, overflow: 'hidden' }}>
                 <div style={{ overflowX: 'auto' }}>
                     <table className="data-table">
                         <thead>

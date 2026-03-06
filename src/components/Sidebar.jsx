@@ -156,7 +156,7 @@ const navItems = [
     { key: 'products', label: 'Products', icon: 'products' },
     { key: 'coupons', label: 'Coupons', icon: 'coupons' },
     { key: 'earnings', label: 'Earnings', icon: 'earnings' },
-    { key: 'zones', label: 'Zones', icon: 'zones' },
+    { key: 'zones', label: 'Hubs', icon: 'zones' },
     { key: 'notifications', label: 'Notifications', icon: 'notifications' },
     { key: 'reviews', label: 'Reviews', icon: 'reviews' },
     { key: 'reports', label: 'Reports', icon: 'reports' },

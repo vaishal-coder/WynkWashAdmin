@@ -14,7 +14,6 @@ import Notifications from './pages/Notifications';
 import Reviews from './pages/Reviews';
 import Reports from './pages/Reports';
 import Settings from './pages/Settings';
-import WorkerApplications from './pages/WorkerApplications';
 import BookingHistory from './pages/BookingHistory';
 import OrderKitStatus from './pages/OrderKitStatus';
 import Verification from './pages/Verification';
@@ -33,7 +32,6 @@ const pages = {
   reviews: Reviews,
   reports: Reports,
   settings: Settings,
-  'worker-applications': WorkerApplications,
   'booking-history': BookingHistory,
   'order-kit-status': OrderKitStatus,
   'verification': Verification,
@@ -41,8 +39,14 @@ const pages = {
 
 export default function App() {
   const [activePage, setActivePage] = useState('dashboard');
+  const [navParams, setNavParams] = useState({});
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleNavigate = (page, param) => {
+    setActivePage(page);
+    setNavParams(param ? { customerId: param } : {});
+  };
 
   const PageComponent = pages[activePage] || Dashboard;
 
@@ -50,7 +54,7 @@ export default function App() {
     <>
       <Sidebar
         active={activePage}
-        onNavigate={setActivePage}
+        onNavigate={handleNavigate}
         collapsed={collapsed}
         setCollapsed={setCollapsed}
         mobileOpen={mobileOpen}
@@ -62,7 +66,7 @@ export default function App() {
         setMobileOpen={setMobileOpen}
       />
       <main className={`main-content ${collapsed ? 'sidebar-collapsed' : ''}`}>
-        <PageComponent key={activePage} onNavigate={setActivePage} />
+        <PageComponent key={activePage} onNavigate={handleNavigate} {...navParams} />
       </main>
     </>
   );
